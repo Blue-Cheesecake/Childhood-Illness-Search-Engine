@@ -25,4 +25,4 @@ try:
   )
 except:
   raise Exception(
-      "Can't connect to Elastic Server. Please make sure ELASTIC_PASSWORD and CA_CERTS_PATH are corrent on your local environment")
+      "Can't connect to Elastic Server. It might happen when Elastic server hasn't started yet or ELASTIC_PASSWORD and CA_CERTS_PATH are not correct on your local environment")
