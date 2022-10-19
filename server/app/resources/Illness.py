@@ -8,7 +8,7 @@ from app.models.Illness import Illness as IllnessModel
 
 class Illness(Resource):
 
-  # TODO: Implement Elasticsearch to query
+  # TODO: Implement Elasticsearch to query Illness
   def get(self, qname: str) -> Dict:
     """Return Dictionary (json format) after querying by Elasticsearch
 
