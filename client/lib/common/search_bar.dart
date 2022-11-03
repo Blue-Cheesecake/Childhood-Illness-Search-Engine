@@ -13,8 +13,13 @@ class SearchBar extends StatefulWidget {
 
 class _SearchBarState extends State<SearchBar> {
   var txtController = TextEditingController();
+  var _validated = true;
 
   void _onSearch(String txt) {
+    _validateText();
+    if (!_validated) {
+      return;
+    }
     // TODO: Implement on search function
     widget.callback(ContainerStatus.UP, txtController.text);
     FocusManager.instance.primaryFocus?.unfocus();
@@ -27,8 +32,20 @@ class _SearchBarState extends State<SearchBar> {
     widget.callback(ContainerStatus.DOWN, txtController.text);
   }
 
+  void _validateText() {
+    setState(() {
+      if (txtController.text.trim() == "") {
+        _validated = false;
+        return;
+      }
+      _validated = true;
+    });
+  }
+
   void _onChangedTxt(String _) {
-    setState(() {});
+    setState(() {
+      _validated = true;
+    });
   }
 
   @override
@@ -39,6 +56,11 @@ class _SearchBarState extends State<SearchBar> {
       onChanged: _onChangedTxt,
       onSubmitted: _onSearch,
       decoration: InputDecoration(
+        errorBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red, width: 0.8),
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        errorText: _validated ? null : "Value can't be empty",
         border: const OutlineInputBorder(
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.all(Radius.circular(20)),
