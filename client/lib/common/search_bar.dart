@@ -2,7 +2,9 @@ import 'package:childhood_illness_search_engine/res/style.dart';
 import 'package:flutter/material.dart';
 
 class SearchBar extends StatefulWidget {
-  const SearchBar({Key? key}) : super(key: key);
+  SearchBar({Key? key, required this.callback}) : super(key: key);
+
+  Function callback;
 
   @override
   State<SearchBar> createState() => _SearchBarState();
@@ -11,12 +13,16 @@ class SearchBar extends StatefulWidget {
 class _SearchBarState extends State<SearchBar> {
   var txtController = TextEditingController();
 
-  void _onSearch() {}
+  void _onSearch() {
+    // TODO: Implement on search function
+    widget.callback;
+  }
 
   void _onRemoveText() {
     setState(() {
       txtController.text = "";
     });
+    widget.callback();
   }
 
   void _onChangedTxt(String _) {

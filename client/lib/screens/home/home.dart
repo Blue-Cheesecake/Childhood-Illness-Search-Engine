@@ -2,12 +2,21 @@ import 'package:childhood_illness_search_engine/common/profile_bar.dart';
 import 'package:childhood_illness_search_engine/common/search_bar.dart';
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
   Widget build(BuildContext context) {
     final mediaSize = MediaQuery.of(context).size;
+
+    void setStateOnSearchFromHome() {
+      setState(() {});
+    }
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -21,10 +30,12 @@ class Home extends StatelessWidget {
           ),
           width: double.infinity,
           height: mediaSize.height * 0.55,
-          child: const Padding(
+          child: Padding(
             padding: EdgeInsets.all(20.0),
             child: SizedBox(
-              child: SearchBar(),
+              child: SearchBar(
+                callback: setStateOnSearchFromHome,
+              ),
             ),
           ),
         ),
