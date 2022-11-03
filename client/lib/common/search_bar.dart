@@ -11,15 +11,15 @@ class SearchBar extends StatefulWidget {
 class _SearchBarState extends State<SearchBar> {
   var txtController = TextEditingController();
 
-  void onSearch() {}
+  void _onSearch() {}
 
-  void onRemoveText() {
+  void _onRemoveText() {
     setState(() {
       txtController.text = "";
     });
   }
 
-  void onChangedTxt(String _) {
+  void _onChangedTxt(String _) {
     setState(() {});
   }
 
@@ -28,7 +28,7 @@ class _SearchBarState extends State<SearchBar> {
     return TextField(
       style: Theme.of(context).textTheme.titleSmall,
       controller: txtController,
-      onChanged: onChangedTxt,
+      onChanged: _onChangedTxt,
       decoration: InputDecoration(
         border: const OutlineInputBorder(
           borderSide: BorderSide.none,
@@ -37,7 +37,7 @@ class _SearchBarState extends State<SearchBar> {
         filled: true,
         fillColor: PrimaryColor.lightGrey,
         prefixIcon: IconButton(
-            onPressed: onSearch,
+            onPressed: _onSearch,
             icon: const Icon(
               Icons.search,
               color: PrimaryColor.lightNavyBlue,
@@ -49,7 +49,7 @@ class _SearchBarState extends State<SearchBar> {
         ),
         suffixIcon: txtController.text != ""
             ? IconButton(
-                onPressed: onRemoveText,
+                onPressed: _onRemoveText,
                 icon: const Icon(
                   Icons.clear_outlined,
                   color: PrimaryColor.lightNavyBlue,
