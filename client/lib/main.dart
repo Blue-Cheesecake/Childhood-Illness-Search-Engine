@@ -28,6 +28,7 @@ class _MainState extends State<Main> {
     return MaterialApp(
       title: 'Material App',
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: PrimaryColor.lightBlue,
         body: SafeArea(child: pages.elementAt(_selectedIndex)),
         bottomNavigationBar: BottomNavigationBar(

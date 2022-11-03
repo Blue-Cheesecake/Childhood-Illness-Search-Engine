@@ -1,4 +1,5 @@
 import 'package:childhood_illness_search_engine/common/profile_bar.dart';
+import 'package:childhood_illness_search_engine/common/search_bar.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -8,23 +9,26 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaSize = MediaQuery.of(context).size;
 
-    return SingleChildScrollView(
-      child: Center(
-        child: Column(
-          children: [
-            ProfileBar(),
-            Card(
-              shape: RoundedRectangleBorder(),
-              elevation: 0,
-              child: SizedBox(
-                height: 200,
-                width: 200,
-                child: Text("Search bar"),
-              ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        const ProfileBar(),
+        Container(
+          alignment: Alignment.topCenter,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+          ),
+          width: double.infinity,
+          height: mediaSize.height * 0.55,
+          child: const Padding(
+            padding: EdgeInsets.all(20.0),
+            child: SizedBox(
+              child: SearchBar(),
             ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }
