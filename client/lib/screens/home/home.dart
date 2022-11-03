@@ -1,5 +1,6 @@
 import 'package:childhood_illness_search_engine/common/profile_bar.dart';
 import 'package:childhood_illness_search_engine/common/search_bar.dart';
+import 'package:childhood_illness_search_engine/screens/home/components/search_result.dart';
 import 'package:childhood_illness_search_engine/screens/home/res/container_status.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +41,7 @@ class _HomeState extends State<Home> {
       children: [
         const ProfileBar(),
         AnimatedContainer(
-          duration: Duration(milliseconds: 250),
+          duration: const Duration(milliseconds: 250),
           curve: Curves.fastOutSlowIn,
           width: double.infinity,
           height: currentContainerHeight,
@@ -50,11 +51,18 @@ class _HomeState extends State<Home> {
             borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
           ),
           child: Padding(
-            padding: EdgeInsets.all(20.0),
-            child: SizedBox(
-              child: SearchBar(
-                callback: setStateOnSearchFromHome,
-              ),
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                SizedBox(
+                  child: SearchBar(
+                    callback: setStateOnSearchFromHome,
+                  ),
+                ),
+                currStatus == ContainerStatus.DOWN
+                    ? const SizedBox.shrink()
+                    : const SearchResult()
+              ],
             ),
           ),
         ),
