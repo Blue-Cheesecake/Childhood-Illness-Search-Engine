@@ -3,9 +3,9 @@ import 'package:childhood_illness_search_engine/screens/home/res/container_statu
 import 'package:flutter/material.dart';
 
 class SearchBar extends StatefulWidget {
-  SearchBar({Key? key, required this.callback}) : super(key: key);
+  const SearchBar({Key? key, required this.callback}) : super(key: key);
 
-  Function(ContainerStatus) callback;
+  final Function(ContainerStatus, String) callback;
 
   @override
   State<SearchBar> createState() => _SearchBarState();
@@ -14,16 +14,17 @@ class SearchBar extends StatefulWidget {
 class _SearchBarState extends State<SearchBar> {
   var txtController = TextEditingController();
 
-  void _onSearch() {
+  void _onSearch(String txt) {
     // TODO: Implement on search function
-    widget.callback(ContainerStatus.UP);
+    widget.callback(ContainerStatus.UP, txtController.text);
+    FocusManager.instance.primaryFocus?.unfocus();
   }
 
   void _onRemoveText() {
     setState(() {
       txtController.text = "";
     });
-    widget.callback(ContainerStatus.DOWN);
+    widget.callback(ContainerStatus.DOWN, txtController.text);
   }
 
   void _onChangedTxt(String _) {
@@ -36,6 +37,7 @@ class _SearchBarState extends State<SearchBar> {
       style: Theme.of(context).textTheme.titleSmall,
       controller: txtController,
       onChanged: _onChangedTxt,
+      onSubmitted: _onSearch,
       decoration: InputDecoration(
         border: const OutlineInputBorder(
           borderSide: BorderSide.none,
@@ -44,7 +46,7 @@ class _SearchBarState extends State<SearchBar> {
         filled: true,
         fillColor: PrimaryColor.lightGrey,
         prefixIcon: IconButton(
-            onPressed: _onSearch,
+            onPressed: () => _onSearch(txtController.text),
             icon: const Icon(
               Icons.search,
               color: PrimaryColor.lightNavyBlue,

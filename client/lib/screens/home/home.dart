@@ -12,16 +12,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  ContainerStatus currStatus = ContainerStatus.DOWN;
+  var currStatus = ContainerStatus.DOWN;
+  var queryText = "";
 
-  void setStateOnSearchFromHome(ContainerStatus s) {
+  void setStateOnSearchFromHome(ContainerStatus s, String txt) {
     setState(() {
       currStatus = s;
-      if (s == ContainerStatus.UP) {
-        print("UP");
-      } else {
-        print("DOWN");
-      }
+      queryText = txt;
     });
   }
 
@@ -59,9 +56,10 @@ class _HomeState extends State<Home> {
                     callback: setStateOnSearchFromHome,
                   ),
                 ),
+                const SizedBox(height: 30),
                 currStatus == ContainerStatus.DOWN
                     ? const SizedBox.shrink()
-                    : const SearchResult()
+                    : SearchResult(queryText: queryText)
               ],
             ),
           ),
