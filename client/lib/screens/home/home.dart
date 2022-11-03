@@ -39,14 +39,16 @@ class _HomeState extends State<Home> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         const ProfileBar(),
-        Container(
+        AnimatedContainer(
+          duration: Duration(milliseconds: 250),
+          curve: Curves.fastOutSlowIn,
+          width: double.infinity,
+          height: currentContainerHeight,
           alignment: Alignment.topCenter,
           decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
           ),
-          width: double.infinity,
-          height: currentContainerHeight,
           child: Padding(
             padding: EdgeInsets.all(20.0),
             child: SizedBox(
