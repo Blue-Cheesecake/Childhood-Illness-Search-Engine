@@ -26,7 +26,7 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      style: TextStyle(color: PrimaryColor.lightNavyBlue),
+      style: Theme.of(context).textTheme.titleSmall,
       controller: txtController,
       onChanged: onChangedTxt,
       decoration: InputDecoration(
@@ -38,16 +38,19 @@ class _SearchBarState extends State<SearchBar> {
         fillColor: PrimaryColor.lightGrey,
         prefixIcon: IconButton(
             onPressed: onSearch,
-            icon: Icon(
+            icon: const Icon(
               Icons.search,
               color: PrimaryColor.lightNavyBlue,
             )),
         hintText: "Search illness..",
-        hintStyle: TextStyle(color: PrimaryColor.lightNavyBlue),
+        hintStyle: const TextStyle(
+          fontSize: 13,
+          color: PrimaryColor.lightNavyBlue,
+        ),
         suffixIcon: txtController.text != ""
             ? IconButton(
                 onPressed: onRemoveText,
-                icon: Icon(
+                icon: const Icon(
                   Icons.clear_outlined,
                   color: PrimaryColor.lightNavyBlue,
                 ),

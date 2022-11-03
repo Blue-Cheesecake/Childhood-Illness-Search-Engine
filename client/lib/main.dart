@@ -26,6 +26,30 @@ class _MainState extends State<Main> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+          fontFamily: "NunitoSans",
+          textTheme: const TextTheme(
+            titleLarge: TextStyle(
+              color: PrimaryColor.littleDarkBlue,
+              fontSize: 25,
+              fontWeight: FontWeight.w700,
+            ),
+            titleMedium: TextStyle(
+              color: PrimaryColor.littleDarkBlue,
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+            ),
+            titleSmall: TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+              fontWeight: FontWeight.w400,
+            ),
+            bodySmall: TextStyle(
+              color: Colors.black,
+              fontSize: 13,
+              fontWeight: FontWeight.w400,
+            ),
+          )),
       title: 'Material App',
       home: Scaffold(
         resizeToAvoidBottomInset: false,
