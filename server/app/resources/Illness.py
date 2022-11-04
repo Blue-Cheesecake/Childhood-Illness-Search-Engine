@@ -19,9 +19,11 @@ class Illness(Resource):
         Dict: Json format
     """
     return IllnessModel(
-        '_name',
-        '_symptoms'
-        '_threating',
-        '_preventing',
-        False
+        '_fake_name',
+        '_fake_description',
+        '_fake_symptoms'
+        '_fake_threating',
+        '_fake_preventing',
+        False,
+        '_fake_link'
     ).json()
