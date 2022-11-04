@@ -32,6 +32,13 @@ class _HomeState extends State<Home> {
     link: "",
   );
 
+  //////////////////// NOTE: Experimental ////////////////////
+  Future<List<IllnessElement>> fetchData() async {
+    await Future.delayed(const Duration(milliseconds: 500));
+    return FakeData.fakeIllnessList;
+  }
+  ////////////////////////////////////////////////////////////
+
   void setStateOnSearchFromHome(ContainerStatus s, String txt) {
     setState(() {
       currStatus = s;
@@ -67,11 +74,22 @@ class _HomeState extends State<Home> {
     // IDLING is empty
     Widget currentContainerChild = const SizedBox.shrink();
     if (currStatus == ContainerStatus.SEARCH_RESULT) {
-      currentContainerChild = SearchResult(
-        queryText: queryText,
-        illnessList: illnessList,
-        callback: setStateOnTabViewIllnessFromHome,
+      //////////////////// NOTE: Experimental ////////////////////
+      currentContainerChild = FutureBuilder(
+        future: fetchData(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const CircularProgressIndicator();
+          }
+
+          return SearchResult(
+            queryText: queryText,
+            illnessList: illnessList,
+            callback: setStateOnTabViewIllnessFromHome,
+          );
+        },
       );
+      //////////////////// NOTE: Experimental ////////////////////
     }
     if (currStatus == ContainerStatus.VIEW_ILLNESS) {
       currentContainerChild = Illness(illnessModel: illness);
