@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class Symptoms extends StatelessWidget {
-  const Symptoms({Key? key, required this.symptomsTxt}) : super(key: key);
+class Description extends StatelessWidget {
+  const Description({Key? key, required this.description}) : super(key: key);
 
-  final String symptomsTxt;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
@@ -12,13 +12,10 @@ class Symptoms extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Symptoms",
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          Text(
-            symptomsTxt,
+            "\t\t\t$description",
             style: Theme.of(context).textTheme.bodySmall,
-          )
+            textAlign: TextAlign.justify,
+          ),
         ],
       ),
     );

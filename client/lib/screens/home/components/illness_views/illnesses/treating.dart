@@ -7,8 +7,20 @@ class Treating extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("Treating $treatingTxt"),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Treating",
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          Text(
+            treatingTxt,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        ],
+      ),
     );
   }
 }

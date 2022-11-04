@@ -56,6 +56,8 @@ class _MainState extends State<Main> {
         backgroundColor: PrimaryColor.lightBlue,
         body: SafeArea(child: pages.elementAt(_selectedIndex)),
         bottomNavigationBar: BottomNavigationBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
           items: const <BottomNavigationBarItem>[

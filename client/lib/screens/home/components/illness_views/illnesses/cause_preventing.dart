@@ -7,8 +7,20 @@ class CausePreventing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("Cause Preventing: $cpTxt"),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Cause/ Preventing",
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          Text(
+            cpTxt,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        ],
+      ),
     );
   }
 }
