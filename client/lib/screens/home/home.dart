@@ -2,6 +2,7 @@ import 'package:childhood_illness_search_engine/common/profile_bar.dart';
 import 'package:childhood_illness_search_engine/common/search_bar.dart';
 import 'package:childhood_illness_search_engine/models/illness_list/illness_list.dart';
 import 'package:childhood_illness_search_engine/res/fake_data.dart';
+import 'package:childhood_illness_search_engine/screens/home/components/illness.dart';
 import 'package:childhood_illness_search_engine/screens/home/components/search_result.dart';
 import 'package:childhood_illness_search_engine/screens/home/res/container_status.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +15,22 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  var currStatus = ContainerStatus.DOWN;
+  var currStatus = ContainerStatus.IDLING;
   var queryText = "";
+
+  // For passing to search result page
   List<IllnessElement> illnessList = [];
+
+  // For passing to illness page
+  IllnessElement illness = IllnessElement(
+    name: "",
+    description: "",
+    symptoms: "",
+    treating: "",
+    preventing: "",
+    common: false,
+    link: "",
+  );
 
   void setStateOnSearchFromHome(ContainerStatus s, String txt) {
     setState(() {
@@ -29,15 +43,38 @@ class _HomeState extends State<Home> {
     //
   }
 
+  void setStateOnTabViewIllnessFromHome(
+    ContainerStatus s,
+    IllnessElement illnessElement,
+  ) {
+    setState(() {
+      currStatus = s;
+      illness = illnessElement;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaSize = MediaQuery.of(context).size;
     late final double currentContainerHeight;
 
-    if (currStatus == ContainerStatus.DOWN) {
+    if (currStatus == ContainerStatus.IDLING) {
       currentContainerHeight = mediaSize.height * 0.55;
     } else {
       currentContainerHeight = mediaSize.height * 0.70;
+    }
+
+    // IDLING is empty
+    Widget currentContainerChild = const SizedBox.shrink();
+    if (currStatus == ContainerStatus.SEARCH_RESULT) {
+      currentContainerChild = SearchResult(
+        queryText: queryText,
+        illnessList: illnessList,
+        callback: setStateOnTabViewIllnessFromHome,
+      );
+    }
+    if (currStatus == ContainerStatus.VIEW_ILLNESS) {
+      currentContainerChild = Illness(illnessModel: illness);
     }
 
     return Column(
@@ -64,12 +101,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 const SizedBox(height: 30),
-                currStatus == ContainerStatus.DOWN
-                    ? const SizedBox.shrink()
-                    : SearchResult(
-                        queryText: queryText,
-                        illnessList: illnessList,
-                      ),
+                currentContainerChild,
               ],
             ),
           ),

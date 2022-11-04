@@ -20,7 +20,7 @@ class _SearchBarState extends State<SearchBar> {
     if (!_validated) {
       return;
     }
-    widget.callback(ContainerStatus.UP, txtController.text);
+    widget.callback(ContainerStatus.SEARCH_RESULT, txtController.text);
     FocusManager.instance.primaryFocus?.unfocus();
   }
 
@@ -28,7 +28,7 @@ class _SearchBarState extends State<SearchBar> {
     setState(() {
       txtController.text = "";
     });
-    widget.callback(ContainerStatus.DOWN, txtController.text);
+    widget.callback(ContainerStatus.IDLING, txtController.text);
   }
 
   void _validateText() {
