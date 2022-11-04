@@ -2,7 +2,7 @@ import 'package:childhood_illness_search_engine/common/profile_bar.dart';
 import 'package:childhood_illness_search_engine/common/search_bar.dart';
 import 'package:childhood_illness_search_engine/models/illness_list/illness_list.dart';
 import 'package:childhood_illness_search_engine/res/fake_data.dart';
-import 'package:childhood_illness_search_engine/screens/home/components/illness.dart';
+import 'package:childhood_illness_search_engine/screens/home/components/illness_views/illness_main.dart';
 import 'package:childhood_illness_search_engine/screens/home/components/search_result.dart';
 import 'package:childhood_illness_search_engine/screens/home/res/container_status.dart';
 import 'package:flutter/material.dart';
