@@ -10,6 +10,7 @@ class FakeData {
       treating: """""",
       preventing: """""",
       common: false,
+      link: "",
     ),
     IllnessElement(
       name: "Bronchiolitis",
@@ -19,6 +20,7 @@ class FakeData {
       treating: "treating",
       preventing: "preventing",
       common: false,
+      link: "",
     ),
     IllnessElement(
       name: "Cough",
@@ -28,6 +30,7 @@ class FakeData {
       treating: "treating",
       preventing: "preventing",
       common: false,
+      link: "",
     ),
     IllnessElement(
       name: "Croup",
@@ -37,6 +40,7 @@ class FakeData {
       treating: "treating",
       preventing: "preventing",
       common: false,
+      link: "",
     ),
     IllnessElement(
       name: "Diarrhoea and vomiting",
@@ -46,6 +50,7 @@ class FakeData {
       treating: "treating",
       preventing: "preventing",
       common: false,
+      link: "",
     ),
     IllnessElement(
       name: "Fever in children",
@@ -55,6 +60,7 @@ class FakeData {
       treating: "treating",
       preventing: "preventing",
       common: false,
+      link: "",
     ),
     IllnessElement(
       name: "Kawasaki disease",
@@ -64,6 +70,7 @@ class FakeData {
       treating: "treating",
       preventing: "preventing",
       common: false,
+      link: "",
     ),
     IllnessElement(
       name: "Measles",
@@ -73,6 +80,7 @@ class FakeData {
       treating: "treating",
       preventing: "preventing",
       common: false,
+      link: "",
     ),
   ];
 }

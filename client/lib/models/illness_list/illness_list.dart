@@ -34,6 +34,7 @@ class IllnessElement {
     required this.treating,
     required this.preventing,
     required this.common,
+    required this.link,
   });
 
   final String name;
@@ -42,6 +43,7 @@ class IllnessElement {
   final String treating;
   final String preventing;
   final bool common;
+  final String link;
 
   factory IllnessElement.fromJson(Map<String, dynamic> json) => IllnessElement(
         name: json["name"],
@@ -50,6 +52,7 @@ class IllnessElement {
         treating: json["treating"],
         preventing: json["preventing"],
         common: json["common"],
+        link: json["link"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -59,5 +62,6 @@ class IllnessElement {
         "treating": treating,
         "preventing": preventing,
         "common": common,
+        "link": link,
       };
 }
