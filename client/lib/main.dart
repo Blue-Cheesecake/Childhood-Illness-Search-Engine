@@ -26,6 +26,7 @@ class _MainState extends State<Main> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
           fontFamily: "NunitoSans",
           textTheme: const TextTheme(
