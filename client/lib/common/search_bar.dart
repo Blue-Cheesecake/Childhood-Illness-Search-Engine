@@ -20,7 +20,6 @@ class _SearchBarState extends State<SearchBar> {
     if (!_validated) {
       return;
     }
-    // TODO: Implement on search function
     widget.callback(ContainerStatus.UP, txtController.text);
     FocusManager.instance.primaryFocus?.unfocus();
   }

@@ -1,5 +1,7 @@
 import 'package:childhood_illness_search_engine/common/profile_bar.dart';
 import 'package:childhood_illness_search_engine/common/search_bar.dart';
+import 'package:childhood_illness_search_engine/models/illness_list/illness_list.dart';
+import 'package:childhood_illness_search_engine/res/fake_data.dart';
 import 'package:childhood_illness_search_engine/screens/home/components/search_result.dart';
 import 'package:childhood_illness_search_engine/screens/home/res/container_status.dart';
 import 'package:flutter/material.dart';
@@ -14,12 +16,17 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   var currStatus = ContainerStatus.DOWN;
   var queryText = "";
+  List<IllnessElement> illnessList = [];
 
   void setStateOnSearchFromHome(ContainerStatus s, String txt) {
     setState(() {
       currStatus = s;
       queryText = txt;
     });
+    // TODO: Implement on search function here
+    // fake data
+    illnessList = FakeData.fakeIllnessList;
+    //
   }
 
   @override
@@ -59,7 +66,10 @@ class _HomeState extends State<Home> {
                 const SizedBox(height: 30),
                 currStatus == ContainerStatus.DOWN
                     ? const SizedBox.shrink()
-                    : SearchResult(queryText: queryText)
+                    : SearchResult(
+                        queryText: queryText,
+                        illnessList: illnessList,
+                      ),
               ],
             ),
           ),
