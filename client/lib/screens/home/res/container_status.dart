@@ -1,4 +1,5 @@
 enum ContainerStatus {
-  DOWN,
-  UP,
+  IDLING,
+  SEARCH_RESULT,
+  VIEW_ILLNESS,
 }
