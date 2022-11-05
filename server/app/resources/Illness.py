@@ -3,7 +3,7 @@ from typing import Dict
 from elastic import elastic_client
 from flask_restful import Resource
 
-from app.models.Illness import Illness as IllnessModel
+from models.Illness import Illness as IllnessModel
 
 
 class Illness(Resource):

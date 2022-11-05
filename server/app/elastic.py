@@ -23,6 +23,7 @@ try:
       ca_certs=CA_CERTS_PATH,
       basic_auth=("elastic", ELASTIC_PASSWORD)
   )
+  print("---- Successfully connected to Elastic server ----")
 except:
   raise Exception(
       "Can't connect to Elastic Server. It might happen when Elastic server hasn't started yet or ELASTIC_PASSWORD and CA_CERTS_PATH are not correct on your local environment")
