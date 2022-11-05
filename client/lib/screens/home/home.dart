@@ -5,6 +5,7 @@ import 'package:childhood_illness_search_engine/res/fake_data.dart';
 import 'package:childhood_illness_search_engine/screens/home/components/illness_views/illness_main.dart';
 import 'package:childhood_illness_search_engine/screens/home/components/search_result.dart';
 import 'package:childhood_illness_search_engine/screens/home/res/container_status.dart';
+import 'package:childhood_illness_search_engine/view_models/illness_list/illness_list.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -17,6 +18,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   var currStatus = ContainerStatus.IDLING;
   var queryText = "";
+  final _illnessListVM = IllnessListVM();
 
   // For passing to search result page
   List<IllnessElement> illnessList = [];
@@ -76,7 +78,7 @@ class _HomeState extends State<Home> {
     if (currStatus == ContainerStatus.SEARCH_RESULT) {
       //////////////////// NOTE: Experimental ////////////////////
       currentContainerChild = FutureBuilder(
-        future: fetchData(),
+        future: _illnessListVM.getIllnessListBySearching(queryText),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const CircularProgressIndicator();
@@ -84,7 +86,7 @@ class _HomeState extends State<Home> {
 
           return SearchResult(
             queryText: queryText,
-            illnessList: illnessList,
+            illnessList: snapshot.data as List<IllnessElement>,
             callback: setStateOnTabViewIllnessFromHome,
           );
         },

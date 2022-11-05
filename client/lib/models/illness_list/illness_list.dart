@@ -11,18 +11,18 @@ String illnessListToJson(IllnessList data) => json.encode(data.toJson());
 
 class IllnessList {
   IllnessList({
-    required this.list,
+    required this.illnessList,
   });
 
-  final List<IllnessElement> list;
+  final List<IllnessElement> illnessList;
 
   factory IllnessList.fromJson(Map<String, dynamic> json) => IllnessList(
-        list: List<IllnessElement>.from(
-            json["list"].map((x) => IllnessElement.fromJson(x))),
+        illnessList: List<IllnessElement>.from(
+            json["illness_list"].map((x) => IllnessElement.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "list": List<dynamic>.from(list.map((x) => x.toJson())),
+        "illness_list": List<dynamic>.from(illnessList.map((x) => x.toJson())),
       };
 }
 
