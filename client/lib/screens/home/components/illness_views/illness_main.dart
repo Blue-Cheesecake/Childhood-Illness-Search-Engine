@@ -59,7 +59,11 @@ class _IllnessState extends State<Illness> {
             child: SmoothPageIndicator(
               controller: _controller,
               count: _list.length,
-              effect: WormEffect(activeDotColor: PrimaryColor.littleDarkBlue),
+              effect: const WormEffect(
+                dotHeight: 12,
+                dotWidth: 12,
+                activeDotColor: PrimaryColor.littleDarkBlue,
+              ),
             ),
           )
         ],
