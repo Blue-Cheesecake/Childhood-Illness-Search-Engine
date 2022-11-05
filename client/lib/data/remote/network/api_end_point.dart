@@ -3,5 +3,5 @@ class ApiEndPoints {
   final String getIllness = "/illness/";
 
   // illnessList/<string:qSymptoms> get by symptoms
-  final String getIllnessList = "illnessList/>";
+  final String getIllnessList = "illnessList/";
 }
