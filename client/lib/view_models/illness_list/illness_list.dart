@@ -10,6 +10,7 @@ class IllnessListVM extends ChangeNotifier {
     try {
       final respJson =
           await _apiService.getResponse(ApiEndPoints().getIllnessList + q);
+      await Future.delayed(const Duration(milliseconds: 500));
       return IllnessList.fromJson(respJson).illnessList;
     } catch (e) {
       rethrow;
