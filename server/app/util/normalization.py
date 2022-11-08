@@ -1,24 +1,32 @@
+import sys
+import contractions
+# from nltk.stem import LancasterStemmer
+from nltk.stem import WordNetLemmatizer
+from nltk.stem import PorterStemmer
+from nltk.tokenize import word_tokenize
 from typing import Dict
 import os
 
 import pandas as pd
 import nltk
+import ssl
+
+try:
+  _create_unverified_https_context = ssl._create_unverified_context
+except AttributeError:
+  pass
+else:
+  ssl._create_default_https_context = _create_unverified_https_context
+
+
 nltk.download('punkt')
+nltk.download('wordnet')
+nltk.download('omw-1.4')
 
-from nltk.tokenize import word_tokenize
-
-from nltk.stem import PorterStemmer
-# from nltk.stem import LancasterStemmer
 porter = PorterStemmer()
+
 # lancaster=LancasterStemmer()
-
-from nltk.stem import WordNetLemmatizer
 lemmatizer = WordNetLemmatizer()
-
-import sys  
-!{sys.executable} -m pip install contractions
-import contractions
-
 
 
 # There will be many csv file in data dir
@@ -48,46 +56,47 @@ def getNormalizedData() -> Dict:
 
     pf = pd.read_csv(FILE_PATH)
 
-    #normalization
+    # normalization
     normalize = []
-    for i in range(18):
-        s = pf["symptoms"][i]
-        word = word_tokenize(s)
-        normalize.append(word)
+    for i in range(len(pf.index)):
+      s = pf["symptoms"][i]
+      word = word_tokenize(s)
+      normalize.append(word)
+
     pf['symptoms_n'] = normalize
 
-    #stemming
+    # stemming
     stem = []
     for sym in pf["symptoms_n"]:
-        st = []
-        for s in sym:
-            s = porter.stem(s)
-            st.append(s)
-        sym = st
-        stem.append(sym)
+      st = []
+      for s in sym:
+        s = porter.stem(s)
+        st.append(s)
+      sym = st
+      stem.append(sym)
     pf['symptoms_n'] = stem
 
-    #Lemmatizing
+    # Lemmatizing
     lem = []
-    for sym in df["symptoms_n"]:
-        st = []
-        for s in sym:
-            s = lemmatizer.lemmatize(s, pos ="a")
-            st.append(s)
-        sym = st
-        lem.append(sym)
+    for sym in pf["symptoms_n"]:
+      st = []
+      for s in sym:
+        s = lemmatizer.lemmatize(s, pos="a")
+        st.append(s)
+      sym = st
+      lem.append(sym)
 
-    #remove puntuation
+    # remove puntuation
     for sym in pf['symptoms_n']:
       for word in sym:
-          if word.isalnum() == False:
-              sym.remove(word)
-    
-    #Substitution of Contraction
+        if word.isalnum() == False:
+          sym.remove(word)
+
+    # Substitution of Contraction
     for sym in pf['symptoms_n']:
       expanded_words = []
       for word in sym:
-          expanded_words.append(contractions.fix(word))
+        expanded_words.append(contractions.fix(word))
       sym = expanded_words
 
     pf_dict = pf.to_dict('index')
