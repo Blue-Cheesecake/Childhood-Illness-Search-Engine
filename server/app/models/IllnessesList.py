@@ -1,6 +1,6 @@
 from typing import Dict, List
 
-from Illness import Illness
+from .Illness import Illness
 
 
 class IllnessList:
