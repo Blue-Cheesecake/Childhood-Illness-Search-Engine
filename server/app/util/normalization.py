@@ -54,7 +54,7 @@ def getNormalizedData() -> Dict:
 
     FILE_PATH = f"{DATA_DIR_PATH}/{csvFile}"
 
-    pf = pd.read_csv(FILE_PATH)
+    pf = pd.read_csv(FILE_PATH, encoding="ISO-8859-1")
 
     # normalization
     normalize = []

@@ -148,3 +148,26 @@ python app/app.py
 ```bash
 nodemon --exec python3 app/app.py
 ```
+
+### 3. Run Kibana (Optional)
+
+Use for Testing
+
+#### Start Kibana
+
+Kibana enables you to easily send requests to Elasticsearch and analyze, visualize, and manage data interactively.
+
+1. In a new terminal session, start Kibana and connect it to your Elasticsearch container:
+
+```bash
+docker pull docker.elastic.co/kibana/kibana:8.5.0
+docker run --name kibana --net elastic -p 5601:5601 docker.elastic.co/kibana/kibana:8.5.0
+```
+
+When you start Kibana, a unique URL is output to your terminal.
+
+2. To access Kibana, open the generated URL in your browser.
+
+- Paste the enrollment token that you copied when starting Elasticsearch and click the button to connect your Kibana instance with Elasticsearch.
+
+- Log in to Kibana as the elastic user with the password that was generated when you started Elasticsearch.
