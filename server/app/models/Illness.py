@@ -24,16 +24,16 @@ class Illness:
     self.link = link
 
   def json(self) -> Dict:
-    # return {
-    #     'name': self.name,
-    #     'description': self.description,
-    #     'symptoms': self.symptoms,
-    #     'treating': self.treating,
-    #     'preventing': self.preventing,
-    #     'common': self.common,
-    #     'link': self.link
-    # }
     return {
-      'name': self.name,
-      'symptoms': self.symptoms,
+        'name': self.name,
+        'description': self.description,
+        'symptoms': self.symptoms,
+        'treating': self.treating,
+        'preventing': self.preventing,
+        'common': self.common,
+        'link': self.link
     }
+    # return {
+    #   'name': self.name,
+    #   'symptoms': self.symptoms,
+    # }
