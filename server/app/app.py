@@ -16,6 +16,9 @@ def digest_data_to_elastic() -> None:
   """
   # TODO: Implement digesting data
 
+  #clear data on index
+  elastic_client.options(
+    ignore_status=[400,404]).indices.delete(index='test_s1')
   data_doc = getNormalizedData()
   # print(data_doc)
   for i in range(len(data_doc)):

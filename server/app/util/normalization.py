@@ -52,10 +52,19 @@ def getNormalizedData() -> Dict:
 
   for csvFile in files:
 
+    if csvFile == '.DS_Store':
+      continue
+
     FILE_PATH = f"{DATA_DIR_PATH}/{csvFile}"
 
     pf = pd.read_csv(FILE_PATH, encoding="ISO-8859-1")
 
+    # print(pf["common state"])
+    pf['common_n'] = pf['common state']
+    pf['common_n'] = pf['common_n'].replace(True,1)
+    pf['common_n'] = pf['common_n'].replace(False,0)
+
+    # print(pf["common"])
     # normalization
     normalize = []
     for i in range(len(pf.index)):
@@ -64,6 +73,7 @@ def getNormalizedData() -> Dict:
       normalize.append(word)
 
     pf['symptoms_n'] = normalize
+    # print(pf["name"])
 
     # stemming
     stem = []
@@ -99,7 +109,10 @@ def getNormalizedData() -> Dict:
         expanded_words.append(contractions.fix(word))
       sym = expanded_words
 
+    # pf['common state'] = pf['common state'].replace(True,1)
     pf_dict = pf.to_dict('index')
+    print(pf)
+
 
   # return {'final': 'dictionary'}
   return pf_dict

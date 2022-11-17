@@ -52,17 +52,21 @@ class IllnessList(Resource):
 
 
     data: List[IllnessModel] = []
-    resp = elastic_client.search(index="test_s1", query={
-    "match": {
-        "symptoms_n": 
-        {
-          "query":qSymptoms_n,
-          "fuzziness": "auto",
-          "max_expansions": 1,
-          "fuzzy_transpositions": "true"
-        }
-    }
-  })
+    resp = elastic_client.search(index="test_s1", 
+    query={
+      "match": {
+          "symptoms_n": 
+          {
+            "query":qSymptoms_n,
+            "fuzziness": "auto",
+            "max_expansions": 1,
+            "fuzzy_transpositions": "true"
+          },
+      },
+  },
+   sort=[
+    { "common_n": "desc"}
+  ])
     for hit in resp['hits']['hits']:
       source = hit["_source"]
       illnessModel = IllnessModel(
