@@ -78,11 +78,14 @@ def getNormalizedData() -> Dict:
 
     # remove puntuation and stop word
     stop_words = set(stopwords.words('english'))
-    print(stop_words)
+    # print(stop_words)
     for sym in pf['symptoms_n']:
+      word_n = []
       for word in sym:
-        if word.isalnum() == False or word in stop_words:
-          sym.remove(word)
+        if word.isalnum() == True and word not in stop_words:
+          word_n.append(word)
+      sym = word_n
+      # print(sym)
 
     # stemming
     stem = []
