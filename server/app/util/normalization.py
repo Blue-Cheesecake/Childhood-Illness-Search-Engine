@@ -4,6 +4,7 @@ import contractions
 from nltk.stem import WordNetLemmatizer
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
 from typing import Dict
 import os
 
@@ -75,6 +76,14 @@ def getNormalizedData() -> Dict:
     pf['symptoms_n'] = normalize
     # print(pf["name"])
 
+    # remove puntuation and stop word
+    stop_words = set(stopwords.words('english'))
+    print(stop_words)
+    for sym in pf['symptoms_n']:
+      for word in sym:
+        if word.isalnum() == False or word in stop_words:
+          sym.remove(word)
+
     # stemming
     stem = []
     for sym in pf["symptoms_n"]:
@@ -95,13 +104,7 @@ def getNormalizedData() -> Dict:
         st.append(s)
       sym = st
       lem.append(sym)
-
-    # remove puntuation
-    for sym in pf['symptoms_n']:
-      for word in sym:
-        if word.isalnum() == False:
-          sym.remove(word)
-
+    
     # Substitution of Contraction
     for sym in pf['symptoms_n']:
       expanded_words = []
