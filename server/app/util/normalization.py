@@ -50,6 +50,9 @@ def getNormalizedData() -> Dict:
 
   numsFiles = len(files)
 
+  # default dataframe
+  final_dataframe = []
+
   for csvFile in files:
 
     FILE_PATH = f"{DATA_DIR_PATH}/{csvFile}"
@@ -99,7 +102,9 @@ def getNormalizedData() -> Dict:
         expanded_words.append(contractions.fix(word))
       sym = expanded_words
 
-    pf_dict = pf.to_dict('index')
+    # pf_dict = pf.to_dict('index')
 
   # return {'final': 'dictionary'}
-  return pf_dict
+
+  final_dataframe = final_dataframe.append([pf])
+  return final_dataframe.to_dict('index')
