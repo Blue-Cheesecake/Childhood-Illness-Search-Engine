@@ -60,12 +60,10 @@ def getNormalizedData() -> Dict:
 
     pf = pd.read_csv(FILE_PATH, encoding="ISO-8859-1")
 
-    # print(pf["common state"])
     pf['common_n'] = pf['common state']
     pf['common_n'] = pf['common_n'].replace(True,1)
     pf['common_n'] = pf['common_n'].replace(False,0)
 
-    # print(pf["common"])
     # normalization
     normalize = []
     for i in range(len(pf.index)):
