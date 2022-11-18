@@ -23,6 +23,7 @@ else:
 nltk.download('punkt')
 nltk.download('wordnet')
 nltk.download('omw-1.4')
+nltk.download('stopwords')
 
 porter = PorterStemmer()
 
