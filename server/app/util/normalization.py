@@ -51,7 +51,7 @@ def getNormalizedData() -> Dict:
   numsFiles = len(files)
 
   # default dataframe
-  final_dataframe = []
+  final_dataframe = pd.DataFrame({})
 
   for csvFile in files:
 
@@ -106,5 +106,5 @@ def getNormalizedData() -> Dict:
 
   # return {'final': 'dictionary'}
 
-  final_dataframe = final_dataframe.append([pf])
-  return final_dataframe.to_dict('index')
+    final_dataframe = final_dataframe.append([pf])
+  return final_dataframe.to_dict()
