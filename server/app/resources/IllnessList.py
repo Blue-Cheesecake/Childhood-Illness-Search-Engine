@@ -33,9 +33,17 @@ class IllnessList(Resource):
     Returns:
         Dict: Json Format (Dictionary)
     """
+    
 
     words = word_tokenize(qSymptoms)
+
+    for i in range(len(words)):
+      words[i] = words[i].lower()
+
     stop_words = set(stopwords.words('english'))
+    #word to be removed from query
+    unnecessary_word = {'son', 'daughter', 'my'}
+    stop_words.update(unnecessary_word)
     word_n = []
     # print(stop_words)
     for word in words:
@@ -59,17 +67,19 @@ class IllnessList(Resource):
       qSymptoms_n = qSymptoms_n+' '+word
     qSymptoms_n = qSymptoms_n[1:]
 
+    print(qSymptoms_n)
+
 
     data: List[IllnessModel] = []
     resp = elastic_client.search(index="test_s1", query={
-    "match": {
-        "symptoms_n": 
-        {
-          "query":qSymptoms_n,
-          "fuzziness": "auto",
-          "max_expansions": 1,
-          "fuzzy_transpositions": "true"
-         },
+    "multi_match": {
+   
+        "query":qSymptoms_n,
+        "fields": ["symptomps_n", "description"],
+        "fuzziness": "auto",
+        "max_expansions": 1,
+        "fuzzy_transpositions": "true"
+        
       },
   },
     sort=[
