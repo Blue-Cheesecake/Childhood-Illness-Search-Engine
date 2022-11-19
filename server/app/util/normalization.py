@@ -146,6 +146,6 @@ def getNormalizedData() -> Dict:
 
   # return {'final': 'dictionary'}
     final_dataframe = pd.concat([final_dataframe, pf], ignore_index=True)
-    # print(final_dataframe)
+    # print(final_dataframe['description_n'])
     # final_dataframe = final_dataframe.append([pf])
   return final_dataframe.to_dict('index')

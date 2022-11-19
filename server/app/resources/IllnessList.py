@@ -43,7 +43,7 @@ class IllnessList(Resource):
     stop_words = set(stopwords.words('english'))
     print(stop_words)
     #word to be removed from query
-    unnecessary_word = {'son', 'daughter', 'my', 'treat','treated'}
+    unnecessary_word = {'son', 'daughter', 'my', 'treat','treated', 'get', 'got', '\'ve', '\'s', 'pain'}
     stop_words.update(unnecessary_word)
     word_n = []
     # print(stop_words)
@@ -76,7 +76,7 @@ class IllnessList(Resource):
     "multi_match": {
    
         "query":qSymptoms_n,
-        "fields": ["symptomps_n", "description"],
+        "fields": ["name","symptomps_n"],
         "fuzziness": "auto",
         "max_expansions": 1,
         "fuzzy_transpositions": "true"
