@@ -41,8 +41,9 @@ class IllnessList(Resource):
       words[i] = words[i].lower()
 
     stop_words = set(stopwords.words('english'))
+    print(stop_words)
     #word to be removed from query
-    unnecessary_word = {'son', 'daughter', 'my'}
+    unnecessary_word = {'son', 'daughter', 'my', 'treat','treated'}
     stop_words.update(unnecessary_word)
     word_n = []
     # print(stop_words)

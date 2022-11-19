@@ -60,13 +60,21 @@ def getNormalizedData() -> Dict:
     pf = pd.read_csv(FILE_PATH, encoding="ISO-8859-1")
 
     # normalization
-    normalize = []
+    normalize_s = []
     for i in range(len(pf.index)):
       s = pf["symptoms"][i]
       word = word_tokenize(s)
-      normalize.append(word)
+      normalize_s.append(word)
 
-    pf['symptoms_n'] = normalize
+    pf['symptoms_n'] = normalize_s
+
+    normalize_d = []
+    for i in range(len(pf.index)):
+      s = pf["symptoms"][i]
+      word = word_tokenize(s)
+      normalize_d.append(word)
+
+    pf['description_n'] = normalize_d
 
     # stemming
     stem = []
@@ -79,6 +87,16 @@ def getNormalizedData() -> Dict:
       stem.append(sym)
     pf['symptoms_n'] = stem
 
+    stem_d = []
+    for sym in pf["description_n"]:
+      st = []
+      for s in sym:
+        s = porter.stem(s)
+        st.append(s)
+      sym = st
+      stem_d.append(sym)
+    pf['description_n'] = stem_d
+
     # Lemmatizing
     lem = []
     for sym in pf["symptoms_n"]:
@@ -88,6 +106,17 @@ def getNormalizedData() -> Dict:
         st.append(s)
       sym = st
       lem.append(sym)
+    pf['symptoms_n'] = lem
+
+    lem_d = []
+    for sym in pf["description_n"]:
+      st = []
+      for s in sym:
+        s = lemmatizer.lemmatize(s, pos="a")
+        st.append(s)
+      sym = st
+      lem_d.append(sym)
+    pf['description_n'] = lem_d
 
     # remove puntuation
     for sym in pf['symptoms_n']:
@@ -95,8 +124,19 @@ def getNormalizedData() -> Dict:
         if word.isalnum() == False:
           sym.remove(word)
 
+    for sym in pf['description_n']:
+      for word in sym:
+        if word.isalnum() == False:
+          sym.remove(word)
+
     # Substitution of Contraction
     for sym in pf['symptoms_n']:
+      expanded_words = []
+      for word in sym:
+        expanded_words.append(contractions.fix(word))
+      sym = expanded_words
+    
+    for sym in pf['description_n']:
       expanded_words = []
       for word in sym:
         expanded_words.append(contractions.fix(word))
