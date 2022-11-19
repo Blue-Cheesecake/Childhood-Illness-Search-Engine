@@ -18,7 +18,7 @@ import sys
 import contractions
 from nltk.stem import WordNetLemmatizer
 lemmatizer = WordNetLemmatizer()
-
+from nltk.corpus import stopwords
 
 class IllnessList(Resource):
   """IllnessList Resource"""
@@ -35,6 +35,15 @@ class IllnessList(Resource):
     """
 
     words = word_tokenize(qSymptoms)
+    stop_words = set(stopwords.words('english'))
+    word_n = []
+    # print(stop_words)
+    for word in words:
+      if word not in stop_words:
+          # print(word)
+          word_n.append(word)
+    words = word_n
+    print(words)
 
     for i in range(len(words)):
       words[i] = porter.stem(words[i])
@@ -60,9 +69,13 @@ class IllnessList(Resource):
           "fuzziness": "auto",
           "max_expansions": 1,
           "fuzzy_transpositions": "true"
-        }
-    }
-  })
+         },
+      },
+  },
+    sort=[
+      { "common_n": "desc"}
+    ]
+  )
     for hit in resp['hits']['hits']:
       source = hit["_source"]
       illnessModel = IllnessModel(
