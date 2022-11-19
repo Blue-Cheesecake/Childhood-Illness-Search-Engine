@@ -105,6 +105,7 @@ def getNormalizedData() -> Dict:
     # pf_dict = pf.to_dict('index')
 
   # return {'final': 'dictionary'}
-
-    final_dataframe = final_dataframe.append([pf])
-  return final_dataframe.to_dict()
+    final_dataframe = pd.concat([final_dataframe, pf], ignore_index=True)
+    print(final_dataframe)
+    # final_dataframe = final_dataframe.append([pf])
+  return final_dataframe.to_dict('index')
