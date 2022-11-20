@@ -111,19 +111,17 @@ class _HomeState extends State<Home> {
             color: Colors.white,
             borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                SizedBox(
-                  child: SearchBar(
-                    callback: setStateOnSearchFromHome,
-                  ),
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+                child: SearchBar(
+                  callback: setStateOnSearchFromHome,
                 ),
-                const SizedBox(height: 30),
-                currentContainerChild,
-              ],
-            ),
+              ),
+              const SizedBox(height: 30),
+              currentContainerChild,
+            ],
           ),
         ),
       ],

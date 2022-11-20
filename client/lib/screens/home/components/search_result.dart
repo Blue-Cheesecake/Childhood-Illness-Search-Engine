@@ -29,7 +29,7 @@ class SearchResult extends StatelessWidget {
             return GestureDetector(
               onTap: () => _clickedIllness(illness),
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.only(bottom: 8, left: 20, right: 20),
                 child: Card(
                   elevation: 2.5,
                   child: ListTile(

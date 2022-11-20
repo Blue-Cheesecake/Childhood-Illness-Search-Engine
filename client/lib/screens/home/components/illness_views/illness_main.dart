@@ -40,7 +40,7 @@ class _IllnessState extends State<Illness> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.only(bottom: 10, left: 20),
             child: Text(
               widget.illnessModel.name,
               style: Theme.of(context).textTheme.titleLarge,
@@ -51,7 +51,10 @@ class _IllnessState extends State<Illness> {
               controller: _controller,
               itemCount: _list.length,
               itemBuilder: (context, index) {
-                return _list.elementAt(index);
+                return Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: _list.elementAt(index),
+                );
               },
             ),
           ),
