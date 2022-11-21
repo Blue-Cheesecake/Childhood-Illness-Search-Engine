@@ -58,6 +58,7 @@ class _IllnessState extends State<Illness> {
               },
             ),
           ),
+          const SizedBox(height: 10),
           Center(
             child: SmoothPageIndicator(
               controller: _controller,

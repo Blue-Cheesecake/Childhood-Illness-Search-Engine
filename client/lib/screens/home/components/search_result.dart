@@ -55,24 +55,3 @@ class SearchResult extends StatelessWidget {
     );
   }
 }
-
-//Column(
-//               children: [
-//                 const Divider(
-//                   thickness: 1.5,
-//                 ),
-//                 ListTile(
-//                   title: Text(
-//                     illness.name,
-//                     style: Theme.of(context).textTheme.titleMedium,
-//                   ),
-//                   subtitle: Text(
-//                     illness.description,
-//                     style: Theme.of(context).textTheme.bodySmall,
-//                     textAlign: TextAlign.justify,
-//                     maxLines: 3,
-//                     overflow: TextOverflow.ellipsis,
-//                   ),
-//                 ),
-//               ],
-//             )
