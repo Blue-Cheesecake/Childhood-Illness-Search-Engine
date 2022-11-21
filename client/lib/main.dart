@@ -47,7 +47,7 @@ class _MainState extends State<Main> {
             ),
             bodySmall: TextStyle(
               color: Colors.black,
-              fontSize: 13,
+              fontSize: 14,
               fontWeight: FontWeight.w400,
             ),
           )),
