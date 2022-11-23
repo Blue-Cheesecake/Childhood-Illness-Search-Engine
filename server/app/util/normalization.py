@@ -100,15 +100,15 @@ def getNormalizedData() -> Dict:
       stem.append(sym)
     pf['symptoms_n'] = stem
 
-    stem_d = []
-    for sym in pf["description_n"]:
-      st = []
-      for s in sym:
-        s = porter.stem(s)
-        st.append(s)
-      sym = st
-      stem_d.append(sym)
-    pf['description_n'] = stem_d
+    # stem_d = []
+    # for sym in pf["description_n"]:
+    #   st = []
+    #   for s in sym:
+    #     s = porter.stem(s)
+    #     st.append(s)
+    #   sym = st
+    #   stem_d.append(sym)
+    # pf['description_n'] = stem_d
 
     # Lemmatizing
     lem = []
@@ -127,11 +127,11 @@ def getNormalizedData() -> Dict:
         expanded_words.append(contractions.fix(word))
       sym = expanded_words
 
-    for sym in pf['description_n']:
-      expanded_words = []
-      for word in sym:
-        expanded_words.append(contractions.fix(word))
-      sym = expanded_words
+    # for sym in pf['description_n']:
+    #   expanded_words = []
+    #   for word in sym:
+    #     expanded_words.append(contractions.fix(word))
+    #   sym = expanded_words
 
     # pf_dict = pf.to_dict('index')
 
