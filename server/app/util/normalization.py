@@ -52,6 +52,9 @@ def getNormalizedData() -> Dict:
 
   numsFiles = len(files)
 
+  # default dataframe
+  final_dataframe = pd.DataFrame({})
+
   for csvFile in files:
 
     if csvFile == '.DS_Store':
@@ -62,8 +65,8 @@ def getNormalizedData() -> Dict:
     pf = pd.read_csv(FILE_PATH, encoding="ISO-8859-1")
 
     pf['common_n'] = pf['common state']
-    pf['common_n'] = pf['common_n'].replace(True,1)
-    pf['common_n'] = pf['common_n'].replace(False,0)
+    pf['common_n'] = pf['common_n'].replace(True, 1)
+    pf['common_n'] = pf['common_n'].replace(False, 0)
 
     # normalization
     normalize = []
@@ -97,6 +100,16 @@ def getNormalizedData() -> Dict:
       stem.append(sym)
     pf['symptoms_n'] = stem
 
+    stem_d = []
+    for sym in pf["description_n"]:
+      st = []
+      for s in sym:
+        s = porter.stem(s)
+        st.append(s)
+      sym = st
+      stem_d.append(sym)
+    pf['description_n'] = stem_d
+
     # Lemmatizing
     lem = []
     for sym in pf["symptoms_n"]:
@@ -106,7 +119,7 @@ def getNormalizedData() -> Dict:
         st.append(s)
       sym = st
       lem.append(sym)
-    
+
     # Substitution of Contraction
     for sym in pf['symptoms_n']:
       expanded_words = []
@@ -114,10 +127,16 @@ def getNormalizedData() -> Dict:
         expanded_words.append(contractions.fix(word))
       sym = expanded_words
 
-    # pf['common state'] = pf['common state'].replace(True,1)
-    pf_dict = pf.to_dict('index')
-    print(pf)
+    for sym in pf['description_n']:
+      expanded_words = []
+      for word in sym:
+        expanded_words.append(contractions.fix(word))
+      sym = expanded_words
 
+    # pf_dict = pf.to_dict('index')
 
   # return {'final': 'dictionary'}
-  return pf_dict
+    final_dataframe = pd.concat([final_dataframe, pf], ignore_index=True)
+    # print(final_dataframe['description_n'])
+    # final_dataframe = final_dataframe.append([pf])
+  return final_dataframe.to_dict('index')
