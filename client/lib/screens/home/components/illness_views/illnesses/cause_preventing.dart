@@ -1,3 +1,4 @@
+import 'package:childhood_illness_search_engine/screens/home/res/utilities.dart';
 import 'package:flutter/material.dart';
 
 class CausePreventing extends StatelessWidget {
@@ -7,6 +8,8 @@ class CausePreventing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var sections = cpTxt.split("\n");
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -15,10 +18,8 @@ class CausePreventing extends StatelessWidget {
             "Cause/ Preventing",
             style: Theme.of(context).textTheme.titleMedium,
           ),
-          Text(
-            cpTxt,
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
+          const SizedBox(height: 7),
+          listIllness(sections),
         ],
       ),
     );

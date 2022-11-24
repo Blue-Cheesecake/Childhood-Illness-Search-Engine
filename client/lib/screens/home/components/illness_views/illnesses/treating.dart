@@ -1,3 +1,4 @@
+import 'package:childhood_illness_search_engine/screens/home/res/utilities.dart';
 import 'package:flutter/material.dart';
 
 class Treating extends StatelessWidget {
@@ -7,6 +8,10 @@ class Treating extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var sections = treatingTxt.split("\n");
+
+    print(sections);
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -15,10 +20,8 @@ class Treating extends StatelessWidget {
             "Treating",
             style: Theme.of(context).textTheme.titleMedium,
           ),
-          Text(
-            treatingTxt,
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
+          const SizedBox(height: 7),
+          listIllness(sections),
         ],
       ),
     );
