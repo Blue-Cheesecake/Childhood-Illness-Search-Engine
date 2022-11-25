@@ -36,25 +36,24 @@ class IllnessList(Resource):
     """
 
     words = word_tokenize(qSymptoms)
-
+ 
     stop_words = set(stopwords.words('english'))
     word_n = []
-    print(stop_words)
+    # print(stop_words)
     for word in words:
       if word not in stop_words:
-        print(word)
+        # print(word)
         word_n.append(word)
     words = word_n
-    print(words)
+    # print(words)
 
     for i in range(len(words)):
       words[i] = words[i].lower()
 
     stop_words = set(stopwords.words('english'))
-    print(stop_words)
+    # print(stop_words)
     # word to be removed from query
-    unnecessary_word = {'son', 'daughter', 'my', 'treat',
-                        'treated', 'get', 'got', '\'ve', '\'s', 'pain'}
+    unnecessary_word = {'son', 'daughter', 'my', 'treat','treated', 'get', 'got', '\'ve', '\'s','syndrome'}
     stop_words.update(unnecessary_word)
     word_n = []
     # print(stop_words)
@@ -63,13 +62,13 @@ class IllnessList(Resource):
         # print(word)
         word_n.append(word)
     words = word_n
-    print(words)
+    # print(words)
 
-    for i in range(len(words)):
-      words[i] = porter.stem(words[i])
+    # for i in range(len(words)):
+    #   words[i] = porter.stem(words[i])
 
-    for i in range(len(words)):
-      words[i] = lemmatizer.lemmatize(words[i], pos="a")
+    # for i in range(len(words)):
+    #   words[i] = lemmatizer.lemmatize(words[i], pos="a")
 
     for i in range(len(words)):
       words[i] = contractions.fix(words[i])
@@ -80,24 +79,22 @@ class IllnessList(Resource):
     qSymptoms_n = qSymptoms_n[1:]
 
     print(qSymptoms_n)
-
     data: List[IllnessModel] = []
     resp = elastic_client.search(index="test_s1",
-                                 query={
-                                     "match": {
-                                         "symptoms_n":
-                                         {
-                                             "query": qSymptoms_n,
-                                             "fuzziness": "auto",
-                                             "max_expansions": 1,
-                                             "fuzzy_transpositions": "true"
-                                         },
-                                     },
-                                 },
-                                 sort=[
-                                     {"common_n": "desc"}
-                                 ]
-                                 )
+                                query = {
+                                  "bool":{
+                                    "should": [
+                                      {
+                                        "multi_match": {
+                                          "query" : qSymptoms_n,
+                                          "type":  "most_fields", #Finds documents which match any field and combines the _score from each field
+                                          "fields": ["symptoms_n", "description"]
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              )
 
     for hit in resp['hits']['hits']:
       source = hit["_source"]

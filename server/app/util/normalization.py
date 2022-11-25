@@ -68,7 +68,7 @@ def getNormalizedData() -> Dict:
     pf['common_n'] = pf['common_n'].replace(True, 1)
     pf['common_n'] = pf['common_n'].replace(False, 0)
 
-    # normalization
+    # tokenization
     normalize = []
     for i in range(len(pf.index)):
       s = pf["symptoms"][i]
@@ -80,14 +80,13 @@ def getNormalizedData() -> Dict:
 
     # remove puntuation and stop word
     stop_words = set(stopwords.words('english'))
-    # print(stop_words)
+    
     for sym in pf['symptoms_n']:
       word_n = []
       for word in sym:
         if word.isalnum() == True and word not in stop_words:
           word_n.append(word)
       sym = word_n
-      # print(sym)
 
     # stemming
     stem = []
@@ -99,16 +98,6 @@ def getNormalizedData() -> Dict:
       sym = st
       stem.append(sym)
     pf['symptoms_n'] = stem
-
-    # stem_d = []
-    # for sym in pf["description_n"]:
-    #   st = []
-    #   for s in sym:
-    #     s = porter.stem(s)
-    #     st.append(s)
-    #   sym = st
-    #   stem_d.append(sym)
-    # pf['description_n'] = stem_d
 
     # Lemmatizing
     lem = []
@@ -127,16 +116,10 @@ def getNormalizedData() -> Dict:
         expanded_words.append(contractions.fix(word))
       sym = expanded_words
 
-    # for sym in pf['description_n']:
-    #   expanded_words = []
-    #   for word in sym:
-    #     expanded_words.append(contractions.fix(word))
-    #   sym = expanded_words
-
-    # pf_dict = pf.to_dict('index')
-
-  # return {'final': 'dictionary'}
     final_dataframe = pd.concat([final_dataframe, pf], ignore_index=True)
-    # print(final_dataframe['description_n'])
-    # final_dataframe = final_dataframe.append([pf])
+    
+  for fin in final_dataframe['symptoms_n']:
+      print(fin)
+  # print(len(final_dataframe))
+
   return final_dataframe.to_dict('index')
