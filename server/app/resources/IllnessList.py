@@ -53,7 +53,7 @@ class IllnessList(Resource):
     stop_words = set(stopwords.words('english'))
     # print(stop_words)
     # word to be removed from query
-    unnecessary_word = {'son', 'daughter', 'my', 'treat','treated', 'get', 'got', '\'ve', '\'s','syndrome'}
+    unnecessary_word = {'son', 'daughter', 'my', 'treat','treated', 'get', 'got', '\'ve', '\'s','syndrome','body','baby','children','pain','feel','like'}
     stop_words.update(unnecessary_word)
     word_n = []
     # print(stop_words)
