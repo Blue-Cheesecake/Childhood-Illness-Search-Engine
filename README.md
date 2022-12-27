@@ -1,8 +1,21 @@
 # Childhood-Illness-Search-Engine
 
-## How to run Program
+"Childhood Illness Search Engine" is a cross-platform app built with Flutter that allows users to search for potential illnesses by inputting a description of their symptoms. The app is divided into two parts: a frontend built with Flutter and a backend built with the Python framework Flask. It is designed to help parents and caregivers quickly identify potential health issues in children and seek medical attention if necessary. The app is a valuable resource for those looking to quickly and accurately diagnose and treat illnesses in young children.
 
-### 1. Start Elasticsearch Server
+- [Installation Instructions](#installation-instructions)
+  - [Elasticsearch server](#2-start-elasticsearch-server)
+  - [Backend server](#3-start-backend-server)
+  - [Kibana (Optional)](#run-kibana-optional)
+- [Workflow of Codes](#workflow-of-codes)
+- [Credits and Acknowledgements](#credits-and-acknowledgements)
+
+## Installation Instructions
+
+### 1. Get the Source Code
+
+Clone or download the source code from the repository.
+
+### 2. Start Elasticsearch Server
 
 #### Install Docker Desktop or Docker Engine
 
@@ -67,7 +80,7 @@ It should show some result like following image if it work correctly.
 
 ![Example](./ex_docker_succ.png)
 
-### 2. Start Backend Server
+### 3. Start Backend Server
 
 1. Make server folder to be virtual environment (venv). Make sure that that current path is root of repo
 
@@ -149,9 +162,9 @@ python app/app.py
 nodemon --exec python3 app/app.py
 ```
 
-### 3. Run Kibana (Optional)
+### Run Kibana (Optional)
 
-Use for Testing
+Use Kibana to test and visualize the data in the Elasticsearch server
 
 #### Start Kibana
 
@@ -171,3 +184,46 @@ When you start Kibana, a unique URL is output to your terminal.
 - Paste the enrollment token that you copied when starting Elasticsearch and click the button to connect your Kibana instance with Elasticsearch.
 
 - Log in to Kibana as the elastic user with the password that was generated when you started Elasticsearch.
+
+### Usage Instructions
+
+1. Start the Elasticserver and backend server as described in previous section.
+2. Start the app by using **Android Studio** or **Visual Studio Code**.
+3. When the app is successfully run on any platform, user can search the list of potential illnesses by inserting the symptoms as a input in search box.
+4. When click search icon, the system will return the list of illnesses in a second.
+5. User can directly reedit the input to start searching again or click **X** icon to remove all string input.
+
+## Workflow of Codes
+
+When the backend server is started, it performs the following actions:
+
+1. Normalizes the data from the provided CSV files using Nltk.
+2. Loads the normalized data into Elasticsearch.
+3. Listens for client input in the form of a symptom description string in frontend part.
+4. Normalizes the input using Nltk.
+5. Searches Elasticsearch for a match based on the normalized input.
+6. Returns a list of potential illnesses and their associated symptoms as an API.
+7. the frontend receives data via an API and display to the client.
+
+## Credits and Acknowledgements
+
+We would like to acknowledge the following resources and libraries that were used in the development of this project:
+
+[Flutter](https://flutter.dev): A mobile app development framework used for the frontend of the app.
+[Flask](https://flask.palletsprojects.com/en/2.2.x/): A Python framework used for the backend of the app.
+[Elasticsearch](https://www.elastic.co): A search engine used to index and search the data in our database.
+[Nltk](https://www.nltk.org): A library for natural language processing used to parse and analyze user input.
+[Pandas](https://pandas.pydata.org): A library for data manipulation and analysis used to process and clean the data in our database.
+
+We used data from the following external source to populate our database:
+
+[Nidirect](https://www.nidirect.gov.uk/conditions/childhood-illnesses): the website containing illnesses information that we extracted and formatted into a CSV file for use in the app.
+
+We would also like to extend our gratitude to the following individuals who contributed to this project:
+
+- [Sinut Wattanarporn]()
+- [Nipphit Apisitpuwakul]()
+- [Atchaya Srimongkolthana]()
+- [Phuritat Wijitluksana]()
+
+This project would not have been possible without the support and guidance of these resources and individuals. Thank you!
