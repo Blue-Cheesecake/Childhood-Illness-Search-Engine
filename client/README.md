@@ -1,16 +1,27 @@
-# childhood_illness_search_engine
+# Frontend
 
-Chilhood illness Search Engine Front-end
+This directory contains the source code for the frontend of the app, which is built using Flutter. The frontend is responsible for the user interface of the app, including the layout, design, and user interactions.
+
+The frontend communicates with the backend of the app through an API to retrieve and display search results for the user. It also provides the user with a simple and intuitive interface for inputting their symptom description and viewing the search results.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+To get started with the frontend of the app, you will need to have Flutter installed on your system. You can find instructions for installing Flutter on the [Flutter website](https://docs.flutter.dev/get-started/install).
 
-A few resources to get you started if this is your first Flutter project:
+Once you have Flutter installed, you can run the frontend app by navigating to the root directory of the frontend and running the following command:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```bash
+flutter run
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This will compile and run the app on your device or emulator.
+
+## Configuration options
+
+The frontend app has the following configuration options:
+
+- --debug: Enable debugging mode.
+
+To use a configuration option, add it to the command when running the app, like this: `flutter run --debug`
+
+For more about Flutter development, view the [online documentation](https://docs.flutter.dev/), which offers tutorials, samples, guidance on mobile development, and a full API reference.
