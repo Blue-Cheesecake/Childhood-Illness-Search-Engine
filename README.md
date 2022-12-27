@@ -6,6 +6,7 @@
   - [Elasticsearch server](#2-start-elasticsearch-server)
   - [Backend server](#3-start-backend-server)
   - [Kibana (Optional)](#run-kibana-optional)
+- [Usage Instruction](#usage-instructions)
 - [Workflow of Codes](#workflow-of-codes)
 - [Credits and Acknowledgements](#credits-and-acknowledgements)
 
@@ -185,7 +186,7 @@ When you start Kibana, a unique URL is output to your terminal.
 
 - Log in to Kibana as the elastic user with the password that was generated when you started Elasticsearch.
 
-### Usage Instructions
+## Usage Instructions
 
 1. Start the Elasticserver and backend server as described in previous section.
 2. Start the app by using **Android Studio** or **Visual Studio Code**.
