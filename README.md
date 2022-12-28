@@ -101,6 +101,7 @@ $ virtualenv server
 $ cd server
 $ pwd
 /path/to/GitHub/Childhood-Illness-Search-Engine/server
+$ source bin/activate
 $ pip install -r requirements.txt
 ```
 
