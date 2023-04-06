@@ -1,5 +1,7 @@
 from dotenv import dotenv_values
 from elasticsearch import Elasticsearch
+from errors.authentication_exception import AuthenticationException
+from errors.path_exception import PathException
 
 config = dotenv_values("app/.env")
 
@@ -10,20 +12,24 @@ LOCAL_HOST = "https://localhost:9200"
 # Raise Error if the config is not found
 # or Variable haven't specified
 if ELASTIC_PASSWORD == '-1':
-  raise Exception("Can't get Elastic Password. It might happen when you haven't initialized '.env' file on /app/.env. Or you haven't declared varialbe ELASTIC_PASSWORD on .env file.")
+    raise AuthenticationException(
+        "Can't get Elastic Password. It might happen when you haven't initialized '.env' file on /app/.env. Or you haven't declared varialbe ELASTIC_PASSWORD on .env file."
+    )
 if CA_CERTS_PATH == '-2':
-  raise Exception("Can't get CA Certificate Path. It might happen when you haven't initialized '.env' file on /app/.env. Or you haven't declared varialbe CA_CERTS_PATH on .env file.")
+    raise PathException(
+        "Can't get CA Certificate Path. It might happen when you haven't initialized '.env' file on /app/.env. Or you haven't declared varialbe CA_CERTS_PATH on .env file."
+    )
 
 
 # Create the client instance for indexing, or querying.
 # This var will be exported
 try:
-  elastic_client = Elasticsearch(
-      LOCAL_HOST,
-      ca_certs=CA_CERTS_PATH,
-      basic_auth=("elastic", ELASTIC_PASSWORD)
-  )
-  print("---- Successfully connected to Elastic server ----")
+    elastic_client = Elasticsearch(
+        LOCAL_HOST,
+        ca_certs=CA_CERTS_PATH,
+        basic_auth=("elastic", ELASTIC_PASSWORD)
+    )
+    print("---- Successfully connected to Elastic server ----")
 except:
-  raise Exception(
-      "Can't connect to Elastic Server. It might happen when Elastic server hasn't started yet or ELASTIC_PASSWORD and CA_CERTS_PATH are not correct on your local environment")
+    raise Exception(
+        "Can't connect to Elastic Server. It might happen when Elastic server hasn't started yet or ELASTIC_PASSWORD and CA_CERTS_PATH are not correct on your local environment")
