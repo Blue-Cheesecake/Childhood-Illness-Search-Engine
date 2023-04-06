@@ -5,7 +5,7 @@ from nltk.stem import WordNetLemmatizer
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
-from typing import Dict
+from errors.file_exception import FileNotFoundException
 import os
 
 import pandas as pd
@@ -36,31 +36,27 @@ lemmatizer = WordNetLemmatizer()
 DATA_DIR_PATH = 'app/data'
 
 
-def getNormalizedData() -> Dict:
+def get_normalized_data() -> dict[str, object]:
+  # TODO: Refactor
     """Prepare Dictionary data from csv file 
 
     Returns:
         Dict: Data that's ready to be digested in Elastic
     """
-    # TODO: Implements import, and normalization data
     files = os.listdir(DATA_DIR_PATH)
 
-    if files == None:
-        raise Exception("Something is wrong. Files is null")
     if len(files) == 0:
-        raise Exception("There is no file in data folder")
-
-    numsFiles = len(files)
+        raise FileNotFoundException("There is no file in data folder")
 
     # default dataframe
     final_dataframe = pd.DataFrame({})
 
-    for csvFile in files:
+    for csv_file in files:
 
-        if csvFile == '.DS_Store':
+        if csv_file == '.DS_Store':
             continue
 
-        FILE_PATH = f"{DATA_DIR_PATH}/{csvFile}"
+        FILE_PATH = f"{DATA_DIR_PATH}/{csv_file}"
 
         pf = pd.read_csv(FILE_PATH, encoding="ISO-8859-1")
 
@@ -118,8 +114,7 @@ def getNormalizedData() -> Dict:
 
         final_dataframe = pd.concat([final_dataframe, pf], ignore_index=True)
 
-    for fin in final_dataframe['symptoms_n']:
-        print(fin)
-    # print(len(final_dataframe))
+    # for fin in final_dataframe['symptoms_n']:
+    #     print(fin)
 
     return final_dataframe.to_dict('index')

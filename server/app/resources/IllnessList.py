@@ -25,7 +25,7 @@ class IllnessList(Resource):
     """IllnessList Resource"""
 
     # TODO: Implement get IllnessList by Elasticsearch
-    def get(self, qSymptoms: str) -> Dict:
+    def get(self, query_symptom: str) -> dict[str, object]:
         """Get list of symptoms based on symptoms query. Elastic will rank and query.
 
         Args:
@@ -35,7 +35,7 @@ class IllnessList(Resource):
             Dict: Json Format (Dictionary)
         """
 
-        words = word_tokenize(qSymptoms)
+        words = word_tokenize(query_symptom)
 
         stop_words = set(stopwords.words('english'))
         word_n = []
@@ -97,6 +97,9 @@ class IllnessList(Resource):
                                          }
                                      }
                                      )
+
+        # print(resp)
+        # print(resp['hits']['hits'])
 
         for hit in resp['hits']['hits']:
             source = hit["_source"]
