@@ -2,6 +2,7 @@ from dotenv import dotenv_values
 from elasticsearch import Elasticsearch
 from errors.authentication_exception import AuthenticationException
 from errors.path_exception import PathException
+from errors.connection_exception import ConnectionErrorException
 
 config = dotenv_values("app/.env")
 
@@ -30,6 +31,6 @@ try:
         basic_auth=("elastic", ELASTIC_PASSWORD)
     )
     print("---- Successfully connected to Elastic server ----")
-except:
-    raise Exception(
+except ValueError:
+    raise ConnectionErrorException(
         "Can't connect to Elastic Server. It might happen when Elastic server hasn't started yet or ELASTIC_PASSWORD and CA_CERTS_PATH are not correct on your local environment")

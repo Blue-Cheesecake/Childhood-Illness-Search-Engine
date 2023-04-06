@@ -24,10 +24,8 @@ def digest_data_to_elastic() -> None:
         try:
             elastic_client.index(index="test_s1", id=i +
                                  1, document=data_doc[i])
-        except:
+        except ValueError:
             print(f"Data doc at {i} can't be imported ")
-
-    return
 
 
 # Add Resouces and Routes
