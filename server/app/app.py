@@ -1,9 +1,7 @@
 from flask import Flask
 from flask_restful import Api
 from util.normalization import getNormalizedData
-
 from elastic import elastic_client
-from resources.Illness import Illness
 from resources.IllnessList import IllnessList
 
 app = Flask(__name__)
@@ -29,7 +27,6 @@ def digest_data_to_elastic() -> None:
 
 
 # Add Resouces and Routes
-api.add_resource(Illness, '/illness/<string:qname>')
 api.add_resource(IllnessList, '/illnessList/<string:qSymptoms>')
 
 if __name__ == "__main__":
