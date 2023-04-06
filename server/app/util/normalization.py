@@ -5,7 +5,7 @@ from nltk.stem import WordNetLemmatizer
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
-from typing import Dict
+from errors.file_exception import FileNotFoundException
 import os
 
 import pandas as pd
@@ -13,11 +13,11 @@ import nltk
 import ssl
 
 try:
-  _create_unverified_https_context = ssl._create_unverified_context
+    _create_unverified_https_context = ssl._create_unverified_context
 except AttributeError:
-  pass
+    pass
 else:
-  ssl._create_default_https_context = _create_unverified_https_context
+    ssl._create_default_https_context = _create_unverified_https_context
 
 
 nltk.download('punkt')
@@ -36,90 +36,85 @@ lemmatizer = WordNetLemmatizer()
 DATA_DIR_PATH = 'app/data'
 
 
-def getNormalizedData() -> Dict:
-  """Prepare Dictionary data from csv file 
+def get_normalized_data() -> dict[str, object]:
+  # TODO: Refactor
+    """Prepare Dictionary data from csv file 
 
-  Returns:
-      Dict: Data that's ready to be digested in Elastic
-  """
-  # TODO: Implements import, and normalization data
-  files = os.listdir(DATA_DIR_PATH)
+    Returns:
+        Dict: Data that's ready to be digested in Elastic
+    """
+    files = os.listdir(DATA_DIR_PATH)
 
-  if files == None:
-    raise Exception("Something is wrong. Files is null")
-  if len(files) == 0:
-    raise Exception("There is no file in data folder")
+    if len(files) == 0:
+        raise FileNotFoundException("There is no file in data folder")
 
-  numsFiles = len(files)
+    # default dataframe
+    final_dataframe = pd.DataFrame({})
 
-  # default dataframe
-  final_dataframe = pd.DataFrame({})
+    for csv_file in files:
 
-  for csvFile in files:
+        if csv_file == '.DS_Store':
+            continue
 
-    if csvFile == '.DS_Store':
-      continue
+        FILE_PATH = f"{DATA_DIR_PATH}/{csv_file}"
 
-    FILE_PATH = f"{DATA_DIR_PATH}/{csvFile}"
+        pf = pd.read_csv(FILE_PATH, encoding="ISO-8859-1")
 
-    pf = pd.read_csv(FILE_PATH, encoding="ISO-8859-1")
+        pf['common_n'] = pf['common state']
+        pf['common_n'] = pf['common_n'].replace(True, 1)
+        pf['common_n'] = pf['common_n'].replace(False, 0)
 
-    pf['common_n'] = pf['common state']
-    pf['common_n'] = pf['common_n'].replace(True, 1)
-    pf['common_n'] = pf['common_n'].replace(False, 0)
+        # tokenization
+        normalize = []
+        for i in range(len(pf.index)):
+            s = pf["symptoms"][i]
+            word = word_tokenize(s)
+            normalize.append(word)
 
-    # tokenization
-    normalize = []
-    for i in range(len(pf.index)):
-      s = pf["symptoms"][i]
-      word = word_tokenize(s)
-      normalize.append(word)
+        pf['symptoms_n'] = normalize
+        # print(pf["name"])
 
-    pf['symptoms_n'] = normalize
-    # print(pf["name"])
+        # remove puntuation and stop word
+        stop_words = set(stopwords.words('english'))
 
-    # remove puntuation and stop word
-    stop_words = set(stopwords.words('english'))
-    
-    for sym in pf['symptoms_n']:
-      word_n = []
-      for word in sym:
-        if word.isalnum() == True and word not in stop_words:
-          word_n.append(word)
-      sym = word_n
+        for sym in pf['symptoms_n']:
+            word_n = []
+            for word in sym:
+                if word.isalnum() == True and word not in stop_words:
+                    word_n.append(word)
+            sym = word_n
 
-    # stemming
-    stem = []
-    for sym in pf["symptoms_n"]:
-      st = []
-      for s in sym:
-        s = porter.stem(s)
-        st.append(s)
-      sym = st
-      stem.append(sym)
-    pf['symptoms_n'] = stem
+        # stemming
+        stem = []
+        for sym in pf["symptoms_n"]:
+            st = []
+            for s in sym:
+                s = porter.stem(s)
+                st.append(s)
+            sym = st
+            stem.append(sym)
+        pf['symptoms_n'] = stem
 
-    # Lemmatizing
-    lem = []
-    for sym in pf["symptoms_n"]:
-      st = []
-      for s in sym:
-        s = lemmatizer.lemmatize(s, pos="a")
-        st.append(s)
-      sym = st
-      lem.append(sym)
+        # Lemmatizing
+        lem = []
+        for sym in pf["symptoms_n"]:
+            st = []
+            for s in sym:
+                s = lemmatizer.lemmatize(s, pos="a")
+                st.append(s)
+            sym = st
+            lem.append(sym)
 
-    # Substitution of Contraction
-    for sym in pf['symptoms_n']:
-      expanded_words = []
-      for word in sym:
-        expanded_words.append(contractions.fix(word))
-      sym = expanded_words
+        # Substitution of Contraction
+        for sym in pf['symptoms_n']:
+            expanded_words = []
+            for word in sym:
+                expanded_words.append(contractions.fix(word))
+            sym = expanded_words
 
-    final_dataframe = pd.concat([final_dataframe, pf], ignore_index=True)
-    
-  for fin in final_dataframe['symptoms_n']:
-      print(fin)
-  # print(len(final_dataframe))
+        final_dataframe = pd.concat([final_dataframe, pf], ignore_index=True)
 
-  return final_dataframe.to_dict('index')
+    # for fin in final_dataframe['symptoms_n']:
+    #     print(fin)
+
+    return final_dataframe.to_dict('index')

@@ -22,91 +22,96 @@ lemmatizer = WordNetLemmatizer()
 
 
 class IllnessList(Resource):
-  """IllnessList Resource"""
+    """IllnessList Resource"""
 
-  # TODO: Implement get IllnessList by Elasticsearch
-  def get(self, qSymptoms: str) -> Dict:
-    """Get list of symptoms based on symptoms query. Elastic will rank and query.
+    # TODO: Implement get IllnessList by Elasticsearch
+    def get(self, query_symptom: str) -> dict[str, object]:
+        """Get list of symptoms based on symptoms query. Elastic will rank and query.
 
-    Args:
-        qSymptoms (str): The text that user put in to search potential symptoms
+        Args:
+            qSymptoms (str): The text that user put in to search potential symptoms
 
-    Returns:
-        Dict: Json Format (Dictionary)
-    """
+        Returns:
+            Dict: Json Format (Dictionary)
+        """
 
-    words = word_tokenize(qSymptoms)
- 
-    stop_words = set(stopwords.words('english'))
-    word_n = []
-    # print(stop_words)
-    for word in words:
-      if word not in stop_words:
-        # print(word)
-        word_n.append(word)
-    words = word_n
-    # print(words)
+        words = word_tokenize(query_symptom)
 
-    for i in range(len(words)):
-      words[i] = words[i].lower()
+        stop_words = set(stopwords.words('english'))
+        word_n = []
+        # print(stop_words)
+        for word in words:
+            if word not in stop_words:
+                # print(word)
+                word_n.append(word)
+        words = word_n
+        # print(words)
 
-    stop_words = set(stopwords.words('english'))
-    # print(stop_words)
-    # word to be removed from query
-    unnecessary_word = {'son', 'daughter', 'my', 'treat','treated', 'get', 'got', '\'ve', '\'s','syndrome','body','baby','children','pain','feel','like'}
-    stop_words.update(unnecessary_word)
-    word_n = []
-    # print(stop_words)
-    for word in words:
-      if word not in stop_words:
-        # print(word)
-        word_n.append(word)
-    words = word_n
-    # print(words)
+        for i in range(len(words)):
+            words[i] = words[i].lower()
 
-    # for i in range(len(words)):
-    #   words[i] = porter.stem(words[i])
+        stop_words = set(stopwords.words('english'))
+        # print(stop_words)
+        # word to be removed from query
+        unnecessary_word = {'son', 'daughter', 'my', 'treat', 'treated', 'get', 'got',
+                            '\'ve', '\'s', 'syndrome', 'body', 'baby', 'children', 'pain', 'feel', 'like'}
+        stop_words.update(unnecessary_word)
+        word_n = []
+        # print(stop_words)
+        for word in words:
+            if word not in stop_words:
+                # print(word)
+                word_n.append(word)
+        words = word_n
+        # print(words)
 
-    # for i in range(len(words)):
-    #   words[i] = lemmatizer.lemmatize(words[i], pos="a")
+        # for i in range(len(words)):
+        #   words[i] = porter.stem(words[i])
 
-    for i in range(len(words)):
-      words[i] = contractions.fix(words[i])
+        # for i in range(len(words)):
+        #   words[i] = lemmatizer.lemmatize(words[i], pos="a")
 
-    qSymptoms_n = ''
-    for word in words:
-      qSymptoms_n = qSymptoms_n+' '+word
-    qSymptoms_n = qSymptoms_n[1:]
+        for i in range(len(words)):
+            words[i] = contractions.fix(words[i])
 
-    print(qSymptoms_n)
-    data: List[IllnessModel] = []
-    resp = elastic_client.search(index="test_s1",
-                                query = {
-                                  "bool":{
-                                    "should": [
-                                      {
-                                        "multi_match": {
-                                          "query" : qSymptoms_n,
-                                          "type":  "most_fields", #Finds documents which match any field and combines the _score from each field
-                                          "fields": ["symptoms_n", "description"]
-                                        }
-                                      }
-                                    ]
-                                  }
-                                }
-                              )
+        qSymptoms_n = ''
+        for word in words:
+            qSymptoms_n = qSymptoms_n+' '+word
+        qSymptoms_n = qSymptoms_n[1:]
 
-    for hit in resp['hits']['hits']:
-      source = hit["_source"]
-      illnessModel = IllnessModel(
-          name=source['name'],
-          description=source['description'],
-          symptoms=source['symptoms'],
-          treating=source['treating'],
-          preventing=source['causes/preventing'],
-          common=source['common state'],
-          link=source['link']
-      )
-      data.append(illnessModel)
+        print(qSymptoms_n)
+        data: List[IllnessModel] = []
+        resp = elastic_client.search(index="test_s1",
+                                     query={
+                                         "bool": {
+                                             "should": [
+                                                 {
+                                                     "multi_match": {
+                                                         "query": qSymptoms_n,
+                                                         # Finds documents which match any field and combines the _score from each field
+                                                         "type":  "most_fields",
+                                                         "fields": ["symptoms_n", "description"]
+                                                     }
+                                                 }
+                                             ]
+                                         }
+                                     }
+                                     )
 
-    return IllnessListModel(illnessArray=data).json()
+        # print(resp)
+        # print(resp['hits']['hits'])
+
+        for hit in resp['hits']['hits']:
+            source = hit["_source"]
+            illnessModel = IllnessModel(
+                name=source['name'],
+                description=source['description'],
+                symptoms=source['symptoms'],
+                treating=source['treating'],
+                preventing=source['causes/preventing'],
+                common=source['common state'],
+                link=source['link']
+            )
+            data.append(illnessModel)
+
+        return IllnessListModel(illness_array=data).json()
