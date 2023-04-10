@@ -24,15 +24,14 @@ lemmatizer = WordNetLemmatizer()
 class IllnessList(Resource):
     """IllnessList Resource"""
 
-    # TODO: Implement get IllnessList by Elasticsearch
     def get(self, query_symptom: str) -> dict[str, object]:
         """Get list of symptoms based on symptoms query. Elastic will rank and query.
 
         Args:
-            qSymptoms (str): The text that user put in to search potential symptoms
+            query_symptom (str): The text that user put in to search potential symptoms
 
         Returns:
-            Dict: Json Format (Dictionary)
+            dict[str, object]: Json Format (Dictionary)
         """
 
         words = word_tokenize(query_symptom)
@@ -74,12 +73,12 @@ class IllnessList(Resource):
         for i in range(len(words)):
             words[i] = contractions.fix(words[i])
 
-        qSymptoms_n = ''
+        query_symptoms_n = ''
         for word in words:
-            qSymptoms_n = qSymptoms_n+' '+word
-        qSymptoms_n = qSymptoms_n[1:]
+            query_symptoms_n = query_symptoms_n+' '+word
+        query_symptoms_n = query_symptoms_n[1:]
 
-        print(qSymptoms_n)
+        print(query_symptoms_n)
         data: List[IllnessModel] = []
         resp = elastic_client.search(index="test_s1",
                                      query={
@@ -87,7 +86,7 @@ class IllnessList(Resource):
                                              "should": [
                                                  {
                                                      "multi_match": {
-                                                         "query": qSymptoms_n,
+                                                         "query": query_symptoms_n,
                                                          # Finds documents which match any field and combines the _score from each field
                                                          "type":  "most_fields",
                                                          "fields": ["symptoms_n", "description"]
@@ -98,12 +97,9 @@ class IllnessList(Resource):
                                      }
                                      )
 
-        # print(resp)
-        # print(resp['hits']['hits'])
-
         for hit in resp['hits']['hits']:
             source = hit["_source"]
-            illnessModel = IllnessModel(
+            illness_model = IllnessModel(
                 name=source['name'],
                 description=source['description'],
                 symptoms=source['symptoms'],
@@ -112,6 +108,6 @@ class IllnessList(Resource):
                 common=source['common state'],
                 link=source['link']
             )
-            data.append(illnessModel)
+            data.append(illness_model)
 
         return IllnessListModel(illness_array=data).json()
