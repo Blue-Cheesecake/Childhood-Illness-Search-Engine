@@ -1,4 +1,4 @@
-import 'package:childhood_illness_search_engine/models/illness_list/illness_list.dart';
+import 'package:childhood_illness_search_engine/models/illness_list.dart';
 import 'package:childhood_illness_search_engine/res/style.dart';
 import 'package:childhood_illness_search_engine/screens/home/components/illness_views/illnesses/cause_preventing.dart';
 import 'package:childhood_illness_search_engine/screens/home/components/illness_views/illnesses/description.dart';
