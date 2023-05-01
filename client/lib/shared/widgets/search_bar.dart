@@ -1,4 +1,4 @@
-import 'package:childhood_illness_search_engine/res/style.dart';
+import 'package:childhood_illness_search_engine/core/theme/style.dart';
 import 'package:childhood_illness_search_engine/screens/home/res/container_status.dart';
 import 'package:flutter/material.dart';
 
