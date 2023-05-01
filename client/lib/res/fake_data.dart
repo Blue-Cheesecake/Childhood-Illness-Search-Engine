@@ -1,4 +1,4 @@
-import 'package:childhood_illness_search_engine/models/illness_list/illness_list.dart';
+import 'package:childhood_illness_search_engine/models/illness_list.dart';
 
 class FakeData {
   static final List<IllnessElement> fakeIllnessList = [
