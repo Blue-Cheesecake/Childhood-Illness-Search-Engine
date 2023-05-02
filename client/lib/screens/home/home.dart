@@ -1,7 +1,7 @@
 import 'package:childhood_illness_search_engine/models/illness_list.dart';
 import 'package:childhood_illness_search_engine/res/fake_data.dart';
 import 'package:childhood_illness_search_engine/screens/home/res/container_status.dart';
-import 'package:childhood_illness_search_engine/shared/widgets/illness_views/illness_main.dart';
+import 'package:childhood_illness_search_engine/shared/widgets/illness_views/illness_main_widget.dart';
 import 'package:childhood_illness_search_engine/shared/widgets/search_bar.dart';
 import 'package:childhood_illness_search_engine/shared/widgets/search_result.dart';
 import 'package:childhood_illness_search_engine/view_models/illness_list.dart';
@@ -93,7 +93,7 @@ class _HomeState extends State<Home> {
       //////////////////// NOTE: Experimental ////////////////////
     }
     if (currStatus == ContainerStatus.VIEW_ILLNESS) {
-      currentContainerChild = Illness(illnessModel: illness);
+      currentContainerChild = IllnessMainWidget(illnessModel: illness);
     }
 
     return Column(

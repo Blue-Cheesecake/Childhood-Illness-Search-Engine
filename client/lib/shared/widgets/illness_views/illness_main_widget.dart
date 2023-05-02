@@ -7,23 +7,23 @@ import 'package:childhood_illness_search_engine/shared/widgets/illness_views/ill
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class Illness extends StatefulWidget {
-  const Illness({Key? key, required this.illnessModel}) : super(key: key);
+class IllnessMainWidget extends StatefulWidget {
+  const IllnessMainWidget({Key? key, required this.illnessModel})
+      : super(key: key);
 
   // Using illness element from illness list class
   final IllnessElement illnessModel;
 
   @override
-  State<Illness> createState() => _IllnessState();
+  State<IllnessMainWidget> createState() => _IllnessMainWidgetState();
 }
 
-class _IllnessState extends State<Illness> {
+class _IllnessMainWidgetState extends State<IllnessMainWidget> {
   final PageController _controller = PageController();
   late final List<Widget> _list;
 
   @override
   void initState() {
-    // TODO: implement initState
     _list = <Widget>[
       Description(description: widget.illnessModel.description),
       Symptoms(symptomsTxt: widget.illnessModel.symptoms),
