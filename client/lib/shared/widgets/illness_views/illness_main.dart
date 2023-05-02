@@ -1,9 +1,9 @@
 import 'package:childhood_illness_search_engine/core/theme/style.dart';
 import 'package:childhood_illness_search_engine/models/illness_list.dart';
-import 'package:childhood_illness_search_engine/screens/home/components/illness_views/illnesses/cause_preventing.dart';
-import 'package:childhood_illness_search_engine/screens/home/components/illness_views/illnesses/description.dart';
-import 'package:childhood_illness_search_engine/screens/home/components/illness_views/illnesses/symptoms.dart';
-import 'package:childhood_illness_search_engine/screens/home/components/illness_views/illnesses/treating.dart';
+import 'package:childhood_illness_search_engine/shared/widgets/illness_views/illnesses/cause_preventing.dart';
+import 'package:childhood_illness_search_engine/shared/widgets/illness_views/illnesses/description.dart';
+import 'package:childhood_illness_search_engine/shared/widgets/illness_views/illnesses/symptoms.dart';
+import 'package:childhood_illness_search_engine/shared/widgets/illness_views/illnesses/treating.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 

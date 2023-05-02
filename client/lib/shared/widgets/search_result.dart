@@ -5,12 +5,10 @@ import 'package:flutter/material.dart';
 class SearchResult extends StatelessWidget {
   const SearchResult({
     Key? key,
-    required this.queryText,
     required this.illnessList,
     required this.callback,
   }) : super(key: key);
 
-  final String queryText;
   final List<IllnessElement> illnessList;
   final Function(ContainerStatus, IllnessElement) callback;
 

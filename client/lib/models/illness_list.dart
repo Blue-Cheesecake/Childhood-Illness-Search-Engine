@@ -35,6 +35,7 @@ class IllnessElement {
     required this.preventing,
     required this.common,
     required this.link,
+    this.isFavourite = false,
   });
 
   final String name;
@@ -44,6 +45,7 @@ class IllnessElement {
   final String preventing;
   final bool common;
   final String link;
+  bool isFavourite;
 
   factory IllnessElement.fromJson(Map<String, dynamic> json) => IllnessElement(
         name: json["name"],
