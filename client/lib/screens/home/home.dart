@@ -16,7 +16,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   var currStatus = ContainerStatus.IDLING;
   var queryText = "";
-  final _illnessListVM = IllnessListVM();
+  final _illnessListVM = IllnessListService();
 
   // For passing to search result page
   List<IllnessElementModel> illnessList = [];
