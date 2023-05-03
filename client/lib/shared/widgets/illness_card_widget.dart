@@ -47,7 +47,7 @@ class _IllnessCardWidgetState extends State<IllnessCardWidget> {
                 setState(() {
                   widget.illness.isFavourite = !widget.illness.isFavourite;
                 });
-                if (widget.illness.isFavourite) {
+                if (!widget.illness.isFavourite) {
                   favProvider.removeIllness(widget.illness);
                 } else {
                   favProvider.addIllness(widget.illness);

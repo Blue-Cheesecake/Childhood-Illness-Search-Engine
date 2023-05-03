@@ -73,7 +73,8 @@ class _HomeState extends State<Home> {
     if (currStatus == ContainerStatus.SEARCH_RESULT) {
       //////////////////// NOTE: Experimental ////////////////////
       currentContainerChild = FutureBuilder(
-        future: _illnessListService.getIllnessListBySearching(queryText),
+        future:
+            _illnessListService.getIllnessListBySearching(context, queryText),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const CircularProgressIndicator();
