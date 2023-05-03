@@ -1,10 +1,11 @@
 import 'package:childhood_illness_search_engine/models/illness_element_model.dart';
 import 'package:childhood_illness_search_engine/screens/home/res/container_status.dart';
+import 'package:childhood_illness_search_engine/services/illness_list_service.dart';
 import 'package:childhood_illness_search_engine/shared/widgets/illness_views/illness_main_widget.dart';
 import 'package:childhood_illness_search_engine/shared/widgets/search_bar.dart';
 import 'package:childhood_illness_search_engine/shared/widgets/search_result.dart';
-import 'package:childhood_illness_search_engine/view_models/illness_list.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -16,7 +17,14 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   var currStatus = ContainerStatus.IDLING;
   var queryText = "";
-  final _illnessListVM = IllnessListService();
+  late final IllnessListService _illnessListService;
+
+  @override
+  void initState() {
+    super.initState();
+    _illnessListService =
+        Provider.of<IllnessListService>(context, listen: false);
+  }
 
   // For passing to search result page
   List<IllnessElementModel> illnessList = [];
@@ -65,7 +73,7 @@ class _HomeState extends State<Home> {
     if (currStatus == ContainerStatus.SEARCH_RESULT) {
       //////////////////// NOTE: Experimental ////////////////////
       currentContainerChild = FutureBuilder(
-        future: _illnessListVM.getIllnessListBySearching(queryText),
+        future: _illnessListService.getIllnessListBySearching(queryText),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const CircularProgressIndicator();

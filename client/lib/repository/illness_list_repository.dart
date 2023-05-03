@@ -3,7 +3,11 @@ import 'package:childhood_illness_search_engine/data/remote/network/network_api_
 import 'package:childhood_illness_search_engine/models/illness_list_model.dart';
 
 class IllnessListRepository {
-  final NetworkApiService _apiService = NetworkApiService();
+  late final NetworkApiService _apiService;
+
+  IllnessListRepository(NetworkApiService apiService) {
+    _apiService = apiService;
+  }
 
   Future<IllnessListModel> fetchIllnessList(String query) async {
     final dynamic response =

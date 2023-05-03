@@ -1,8 +1,11 @@
 import 'package:childhood_illness_search_engine/core/theme/app_theme.dart';
 import 'package:childhood_illness_search_engine/core/theme/style.dart';
+import 'package:childhood_illness_search_engine/data/remote/network/network_api_service.dart';
 import 'package:childhood_illness_search_engine/providers/favourite_list_provider.dart';
+import 'package:childhood_illness_search_engine/repository/illness_list_repository.dart';
 import 'package:childhood_illness_search_engine/screens/favourites/favourites_screen.dart';
 import 'package:childhood_illness_search_engine/screens/home/home.dart';
+import 'package:childhood_illness_search_engine/services/illness_list_service.dart';
 import 'package:childhood_illness_search_engine/shared/widgets/bottom_nav_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +34,22 @@ class _MainState extends State<Main> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => FavouriteListProvider())
+        ChangeNotifierProvider(create: (context) => FavouriteListProvider()),
+
+        // Dependency Injection
+        Provider<NetworkApiService>(
+          create: (context) => NetworkApiService(),
+        ),
+        ProxyProvider<NetworkApiService, IllnessListRepository>(
+          update: (_, apiService, __) {
+            return IllnessListRepository(apiService);
+          },
+        ),
+        ProxyProvider<IllnessListRepository, IllnessListService>(
+          update: (_, repository, __) {
+            return IllnessListService(repository);
+          },
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
