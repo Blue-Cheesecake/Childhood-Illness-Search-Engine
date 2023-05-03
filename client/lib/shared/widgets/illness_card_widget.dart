@@ -1,4 +1,4 @@
-import 'package:childhood_illness_search_engine/models/illness_list.dart';
+import 'package:childhood_illness_search_engine/models/illness_element_model.dart';
 import 'package:childhood_illness_search_engine/providers/favourite_list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,8 +8,8 @@ class IllnessCardWidget extends StatefulWidget {
       {Key? key, required this.illness, required this.callback})
       : super(key: key);
 
-  final IllnessElement illness;
-  final void Function(IllnessElement) callback;
+  final IllnessElementModel illness;
+  final void Function(IllnessElementModel) callback;
 
   @override
   State<IllnessCardWidget> createState() => _IllnessCardWidgetState();

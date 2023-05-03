@@ -1,5 +1,5 @@
 import 'package:childhood_illness_search_engine/core/theme/style.dart';
-import 'package:childhood_illness_search_engine/models/illness_list.dart';
+import 'package:childhood_illness_search_engine/models/illness_element_model.dart';
 import 'package:childhood_illness_search_engine/shared/widgets/illness_views/illnesses/cause_preventing.dart';
 import 'package:childhood_illness_search_engine/shared/widgets/illness_views/illnesses/description.dart';
 import 'package:childhood_illness_search_engine/shared/widgets/illness_views/illnesses/symptoms.dart';
@@ -12,7 +12,7 @@ class IllnessMainWidget extends StatefulWidget {
       : super(key: key);
 
   // Using illness element from illness list class
-  final IllnessElement illnessModel;
+  final IllnessElementModel illnessModel;
 
   @override
   State<IllnessMainWidget> createState() => _IllnessMainWidgetState();

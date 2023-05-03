@@ -1,4 +1,4 @@
-import 'package:childhood_illness_search_engine/models/illness_list.dart';
+import 'package:childhood_illness_search_engine/models/illness_element_model.dart';
 import 'package:childhood_illness_search_engine/screens/home/res/container_status.dart';
 import 'package:childhood_illness_search_engine/shared/widgets/illness_card_widget.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +10,10 @@ class SearchResult extends StatelessWidget {
     required this.callback,
   }) : super(key: key);
 
-  final List<IllnessElement> illnessList;
-  final Function(ContainerStatus, IllnessElement) callback;
+  final List<IllnessElementModel> illnessList;
+  final Function(ContainerStatus, IllnessElementModel) callback;
 
-  void _clickedIllness(IllnessElement currIllness) {
+  void _clickedIllness(IllnessElementModel currIllness) {
     callback(ContainerStatus.VIEW_ILLNESS, currIllness);
   }
 

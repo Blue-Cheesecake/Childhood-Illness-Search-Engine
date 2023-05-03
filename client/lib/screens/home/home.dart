@@ -1,5 +1,4 @@
-import 'package:childhood_illness_search_engine/models/illness_list.dart';
-import 'package:childhood_illness_search_engine/res/fake_data.dart';
+import 'package:childhood_illness_search_engine/models/illness_element_model.dart';
 import 'package:childhood_illness_search_engine/screens/home/res/container_status.dart';
 import 'package:childhood_illness_search_engine/shared/widgets/illness_views/illness_main_widget.dart';
 import 'package:childhood_illness_search_engine/shared/widgets/search_bar.dart';
@@ -20,10 +19,10 @@ class _HomeState extends State<Home> {
   final _illnessListVM = IllnessListVM();
 
   // For passing to search result page
-  List<IllnessElement> illnessList = [];
+  List<IllnessElementModel> illnessList = [];
 
   // For passing to illness page
-  IllnessElement illness = IllnessElement(
+  IllnessElementModel illness = IllnessElementModel(
     name: "",
     description: "",
     symptoms: "",
@@ -33,28 +32,16 @@ class _HomeState extends State<Home> {
     link: "",
   );
 
-  //////////////////// NOTE: Experimental ////////////////////
-  Future<List<IllnessElement>> fetchData() async {
-    await Future.delayed(const Duration(milliseconds: 500));
-    return FakeData.fakeIllnessList;
-  }
-
-  ////////////////////////////////////////////////////////////
-
   void setStateOnSearchFromHome(ContainerStatus s, String txt) {
     setState(() {
       currStatus = s;
       queryText = txt;
     });
-    // TODO: Implement on search function here
-    // fake data
-    illnessList = FakeData.fakeIllnessList;
-    //
   }
 
   void setStateOnTabViewIllnessFromHome(
     ContainerStatus s,
-    IllnessElement illnessElement,
+    IllnessElementModel illnessElement,
   ) {
     setState(() {
       currStatus = s;
@@ -85,7 +72,7 @@ class _HomeState extends State<Home> {
           }
 
           return SearchResult(
-            illnessList: snapshot.data as List<IllnessElement>,
+            illnessList: snapshot.data as List<IllnessElementModel>,
             callback: setStateOnTabViewIllnessFromHome,
           );
         },

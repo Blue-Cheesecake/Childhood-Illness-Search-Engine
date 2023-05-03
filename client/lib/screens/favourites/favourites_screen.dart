@@ -1,4 +1,4 @@
-import 'package:childhood_illness_search_engine/models/illness_list.dart';
+import 'package:childhood_illness_search_engine/models/illness_element_model.dart';
 import 'package:childhood_illness_search_engine/providers/favourite_list_provider.dart';
 import 'package:childhood_illness_search_engine/screens/home/res/container_status.dart';
 import 'package:childhood_illness_search_engine/shared/widgets/illness_views/illness_main_widget.dart';
@@ -16,13 +16,13 @@ class FavouritesScreen extends StatefulWidget {
 class _FavouritesScreenState extends State<FavouritesScreen> {
   ContainerStatus containerStatus = ContainerStatus.SEARCH_RESULT;
 
-  late IllnessElement selectedIllness;
+  late IllnessElementModel selectedIllness;
 
   @override
   Widget build(BuildContext context) {
     FavouriteListProvider favProvider =
         Provider.of<FavouriteListProvider>(context);
-    List<IllnessElement> illnessList = favProvider.illnessList;
+    List<IllnessElementModel> illnessList = favProvider.illnessList;
 
     late Widget containerChild;
 
