@@ -1,8 +1,9 @@
-import 'package:childhood_illness_search_engine/screens/home/res/utilities.dart';
+import 'package:childhood_illness_search_engine/core/utils/build_illness_util.dart';
 import 'package:flutter/material.dart';
 
-class CausePreventing extends StatelessWidget {
-  const CausePreventing({Key? key, required this.cpTxt}) : super(key: key);
+class CausePreventingWidget extends StatelessWidget {
+  const CausePreventingWidget({Key? key, required this.cpTxt})
+      : super(key: key);
 
   final String cpTxt;
 

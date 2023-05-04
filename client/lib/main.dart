@@ -1,10 +1,10 @@
+import 'package:childhood_illness_search_engine/core/theme/app_style.dart';
 import 'package:childhood_illness_search_engine/core/theme/app_theme.dart';
-import 'package:childhood_illness_search_engine/core/theme/style.dart';
 import 'package:childhood_illness_search_engine/data/remote/network/network_api_service.dart';
 import 'package:childhood_illness_search_engine/providers/favourite_list_provider.dart';
 import 'package:childhood_illness_search_engine/repository/illness_list_repository.dart';
-import 'package:childhood_illness_search_engine/screens/favourites/favourites_screen.dart';
-import 'package:childhood_illness_search_engine/screens/home/home.dart';
+import 'package:childhood_illness_search_engine/screens/favourites_view.dart';
+import 'package:childhood_illness_search_engine/screens/home_view.dart';
 import 'package:childhood_illness_search_engine/services/illness_list_service.dart';
 import 'package:childhood_illness_search_engine/shared/widgets/bottom_nav_bar_widget.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 
 void main() => runApp(const Main());
 
-const List<Widget> pages = <Widget>[Home(), FavouritesScreen()];
+const List<Widget> pages = <Widget>[HomeView(), FavouritesView()];
 
 class Main extends StatefulWidget {
   const Main({Key? key}) : super(key: key);

@@ -1,17 +1,17 @@
-import 'package:childhood_illness_search_engine/core/theme/style.dart';
-import 'package:childhood_illness_search_engine/screens/home/res/container_status.dart';
+import 'package:childhood_illness_search_engine/core/enums/container_status.dart';
+import 'package:childhood_illness_search_engine/core/theme/app_style.dart';
 import 'package:flutter/material.dart';
 
-class SearchBar extends StatefulWidget {
-  const SearchBar({Key? key, required this.callback}) : super(key: key);
+class SearchBarWidget extends StatefulWidget {
+  const SearchBarWidget({Key? key, required this.callback}) : super(key: key);
 
   final Function(ContainerStatus, String) callback;
 
   @override
-  State<SearchBar> createState() => _SearchBarState();
+  State<SearchBarWidget> createState() => _SearchBarWidgetState();
 }
 
-class _SearchBarState extends State<SearchBar> {
+class _SearchBarWidgetState extends State<SearchBarWidget> {
   var txtController = TextEditingController();
   var _validated = true;
 

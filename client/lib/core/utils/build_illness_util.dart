@@ -1,4 +1,4 @@
-import 'package:childhood_illness_search_engine/core/theme/style.dart';
+import 'package:childhood_illness_search_engine/core/theme/app_style.dart';
 import 'package:flutter/material.dart';
 
 Widget listIllness(List<String> sections) {

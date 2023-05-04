@@ -1,10 +1,10 @@
+import 'package:childhood_illness_search_engine/core/enums/container_status.dart';
 import 'package:childhood_illness_search_engine/models/illness_element_model.dart';
-import 'package:childhood_illness_search_engine/screens/home/res/container_status.dart';
 import 'package:childhood_illness_search_engine/shared/widgets/illness_card_widget.dart';
 import 'package:flutter/material.dart';
 
-class SearchResult extends StatelessWidget {
-  const SearchResult({
+class SearchResultWidget extends StatelessWidget {
+  const SearchResultWidget({
     Key? key,
     required this.illnessList,
     required this.callback,

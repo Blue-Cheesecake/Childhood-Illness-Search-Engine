@@ -1,8 +1,8 @@
-import 'package:childhood_illness_search_engine/screens/home/res/utilities.dart';
+import 'package:childhood_illness_search_engine/core/utils/build_illness_util.dart';
 import 'package:flutter/material.dart';
 
-class Treating extends StatelessWidget {
-  const Treating({Key? key, required this.treatingTxt}) : super(key: key);
+class TreatingWidget extends StatelessWidget {
+  const TreatingWidget({Key? key, required this.treatingTxt}) : super(key: key);
 
   final String treatingTxt;
 

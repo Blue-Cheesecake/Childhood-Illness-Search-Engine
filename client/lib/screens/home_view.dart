@@ -1,20 +1,21 @@
+
+import 'package:childhood_illness_search_engine/core/enums/container_status.dart';
 import 'package:childhood_illness_search_engine/models/illness_element_model.dart';
-import 'package:childhood_illness_search_engine/screens/home/res/container_status.dart';
 import 'package:childhood_illness_search_engine/services/illness_list_service.dart';
 import 'package:childhood_illness_search_engine/shared/widgets/illness_views/illness_main_widget.dart';
-import 'package:childhood_illness_search_engine/shared/widgets/search_bar.dart';
-import 'package:childhood_illness_search_engine/shared/widgets/search_result.dart';
+import 'package:childhood_illness_search_engine/shared/widgets/search_bar_widget.dart';
+import 'package:childhood_illness_search_engine/shared/widgets/search_result_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class HomeView extends StatefulWidget {
+  const HomeView({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeViewState extends State<HomeView> {
   var currStatus = ContainerStatus.IDLING;
   var queryText = "";
   late final IllnessListService _illnessListService;
@@ -71,7 +72,6 @@ class _HomeState extends State<Home> {
     // IDLING is empty
     Widget currentContainerChild = const SizedBox.shrink();
     if (currStatus == ContainerStatus.SEARCH_RESULT) {
-      //////////////////// NOTE: Experimental ////////////////////
       currentContainerChild = FutureBuilder(
         future:
             _illnessListService.getIllnessListBySearching(context, queryText),
@@ -80,13 +80,12 @@ class _HomeState extends State<Home> {
             return const CircularProgressIndicator();
           }
 
-          return SearchResult(
+          return SearchResultWidget(
             illnessList: snapshot.data as List<IllnessElementModel>,
             callback: setStateOnTabViewIllnessFromHome,
           );
         },
       );
-      //////////////////// NOTE: Experimental ////////////////////
     }
     if (currStatus == ContainerStatus.VIEW_ILLNESS) {
       currentContainerChild = IllnessMainWidget(illnessModel: illness);
@@ -110,7 +109,7 @@ class _HomeState extends State<Home> {
             children: [
               Container(
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-                child: SearchBar(
+                child: SearchBarWidget(
                   callback: setStateOnSearchFromHome,
                 ),
               ),

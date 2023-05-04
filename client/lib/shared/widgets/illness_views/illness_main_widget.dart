@@ -1,9 +1,9 @@
-import 'package:childhood_illness_search_engine/core/theme/style.dart';
+import 'package:childhood_illness_search_engine/core/theme/app_style.dart';
 import 'package:childhood_illness_search_engine/models/illness_element_model.dart';
-import 'package:childhood_illness_search_engine/shared/widgets/illness_views/illnesses/cause_preventing.dart';
-import 'package:childhood_illness_search_engine/shared/widgets/illness_views/illnesses/description.dart';
-import 'package:childhood_illness_search_engine/shared/widgets/illness_views/illnesses/symptoms.dart';
-import 'package:childhood_illness_search_engine/shared/widgets/illness_views/illnesses/treating.dart';
+import 'package:childhood_illness_search_engine/shared/widgets/illness_views/illnesses/cause_preventing_widget.dart';
+import 'package:childhood_illness_search_engine/shared/widgets/illness_views/illnesses/description_widget.dart';
+import 'package:childhood_illness_search_engine/shared/widgets/illness_views/illnesses/symptoms_widget.dart';
+import 'package:childhood_illness_search_engine/shared/widgets/illness_views/illnesses/treating_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -25,10 +25,10 @@ class _IllnessMainWidgetState extends State<IllnessMainWidget> {
   @override
   void initState() {
     _list = <Widget>[
-      Description(description: widget.illnessModel.description),
-      Symptoms(symptomsTxt: widget.illnessModel.symptoms),
-      Treating(treatingTxt: widget.illnessModel.treating),
-      CausePreventing(cpTxt: widget.illnessModel.preventing),
+      DescriptionWidget(description: widget.illnessModel.description),
+      SymptomsWidget(symptomsTxt: widget.illnessModel.symptoms),
+      TreatingWidget(treatingTxt: widget.illnessModel.treating),
+      CausePreventingWidget(cpTxt: widget.illnessModel.preventing),
     ];
     super.initState();
   }

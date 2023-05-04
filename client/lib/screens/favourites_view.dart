@@ -1,19 +1,19 @@
+import 'package:childhood_illness_search_engine/core/enums/container_status.dart';
 import 'package:childhood_illness_search_engine/models/illness_element_model.dart';
 import 'package:childhood_illness_search_engine/providers/favourite_list_provider.dart';
-import 'package:childhood_illness_search_engine/screens/home/res/container_status.dart';
 import 'package:childhood_illness_search_engine/shared/widgets/illness_views/illness_main_widget.dart';
-import 'package:childhood_illness_search_engine/shared/widgets/search_result.dart';
+import 'package:childhood_illness_search_engine/shared/widgets/search_result_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class FavouritesScreen extends StatefulWidget {
-  const FavouritesScreen({Key? key}) : super(key: key);
+class FavouritesView extends StatefulWidget {
+  const FavouritesView({Key? key}) : super(key: key);
 
   @override
-  State<FavouritesScreen> createState() => _FavouritesScreenState();
+  State<FavouritesView> createState() => _FavouritesViewState();
 }
 
-class _FavouritesScreenState extends State<FavouritesScreen> {
+class _FavouritesViewState extends State<FavouritesView> {
   ContainerStatus containerStatus = ContainerStatus.SEARCH_RESULT;
 
   late IllnessElementModel selectedIllness;
@@ -27,7 +27,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
     late Widget containerChild;
 
     if (containerStatus == ContainerStatus.SEARCH_RESULT) {
-      containerChild = SearchResult(
+      containerChild = SearchResultWidget(
           illnessList: illnessList,
           callback: (contStatus, illEle) {
             setState(() {
